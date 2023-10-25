@@ -1,0 +1,363 @@
+0000112E Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 25/10/2023 19:12:23
+
+00000000                             1  ; ==============================================================================
+00000000                             2  ; TITLE       :
+00000000                             3  ; DESCRIPTION :
+00000000                             4  ; AUTHOR      :
+00000000                             5  ; HISTORY     :
+00000000                             6  ; ==============================================================================
+00000000                             7  
+00001000                             8              ORG     $1000
+00001000                             9              
+00001000                            10              INCLUDE "CONST.X68"
+00001000                            11  ; =============================================================================
+00001000                            12  ; GAME CONSTANTS
+00001000                            13  ; =============================================================================
+00001000                            14  
+00001000                            15  ; --- BIRD RELATED CONSTANTS --------------------------------------------------
+00001000                            16  
+00001000                            17  ;BIRDPOSX    EQU     SCRWIDTH/4          BIRD X COORDINATE
+00001000                            18          ; THE FOLLOWING CONSTANTS WILL BE REMOVED WHEN USE AN IMAGE AS A BIRD
+00001000  =0000CCCC                 19  BIRDPCOL    EQU     $0000CCCC
+00001000  =0000FFFF                 20  BIRDFCOL    EQU     $0000FFFF
+00001000  =0000000A                 21  BIRDRAD     EQU     10
+00001000                            22  
+00001000                            23  
+00001000                            24  ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
+00001000                            25  
+00001000  =00000000                 26  SCOFCOL     EQU     $00000000           ; TEXT BACKGROUND COLOR
+00001000  =00000101                 27  SCOLINE1    EQU     $0101               ; FIRST TEXT LINE COORDINATE 
+00001000  =00000102                 28  SCOLINE2    EQU     $0102               ; SECOND TEXT LINE COORDINATE
+00001000                            29  
+00001000                            30  ; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
+00001000                            31  
+00001000  =00000014                 32  FLOHEIGH    EQU     20                  ; FLOOR HEIGHT
+00001000                            33  
+00001000                            34  -------------------- end include --------------------
+00001000                            35              INCLUDE "SYSCONST.X68"
+00001000                            36  ; =============================================================================
+00001000                            37  ; SYSTEM CONSTANTS
+00001000                            38  ; =============================================================================
+00001000                            39  
+00001000                            40  ; --- SCREEN RELATED CONSTANTS ------------------------------------------------
+00001000                            41  
+00001000  =0000003C                 42  SCRFPS      EQU     60                  ; SCREEN FRAMES PER SECOND
+00001000  =00000280                 43  SCRWIDTH    EQU     640                 ; SCREEN WIDTH
+00001000  =000001E0                 44  SCRHEIGH    EQU     480                 ; SCREEN HEIGHT
+00001000                            45  
+00001000                            46  ; --- TRAP NUMBERS ------------------------------------------------------------
+00001000                            47  
+00001000  =00000000                 48  SCRUPDTN    EQU     0                   ; SCREEN UPDATE TRAP NUMBER
+00001000                            49  
+00001000                            50  ; --- INTERRUPTION NUMBERS ----------------------------------------------------
+00001000                            51  
+00001000  =00000001                 52  SCRINTN     EQU     1                   ; SCREEN INTERRUPT TRAP NUMBER    
+00001000                            53  
+00001000                            54  
+00001000                            55  
+00001000                            56  
+00001000                            57  
+00001000                            58  -------------------- end include --------------------
+00001000                            59              INCLUDE "SYSTEM.X68"
+00001000                            60  ; =============================================================================
+00001000                            61  ; SYSTEM
+00001000                            62  ; =============================================================================
+00001000                            63  
+00001000                            64  ; -----------------------------------------------------------------------------
+00001000                            65  SYSINIT
+00001000                            66  ; INITIALIZE SYSTEM
+00001000                            67  ; INPUT     : NONE
+00001000                            68  ; OUTPUT    : NONE
+00001000                            69  ; MODIFIES  : NONE
+00001000                            70  ; -----------------------------------------------------------------------------
+00001000                            71              ; INSTALL TRAPS AND INTERRUPTIONS
+00001000  21FC 00001062 0080        72              MOVE.L  #SCRPLOT,($80+SCRUPDTN*4)
+00001008  21FC 0000107C 0064        73              MOVE.L  #SCRTIM,($64)
+00001010                            74              
+00001010  4EB9 0000101E             75              JSR     SCRINIT
+00001016                            76              
+00001016                            77              ; SET USER MODE AND ALLOW INTERRUPTIONS
+00001016  40E7                      78              MOVE.W  SR,-(A7)
+00001018  0257 D8FF                 79              ANDI.W  #$D8FF,(A7)
+0000101C  4E73                      80              RTE
+0000101E                            81  
+0000101E                            82  ; -----------------------------------------------------------------------------
+0000101E                            83  SCRINIT
+0000101E                            84  ; INIT SCREEN. SET SCREEN RESOLUTION, SET WINDOWED MODE, CLEAR SCREEN,
+0000101E                            85  ; ENABLE DOUBLE BUFFER, ENABLE TIMED INTERRUPT.
+0000101E                            86  ; INPUT     : NONE
+0000101E                            87  ; OUTPUT    : NONE
+0000101E                            88  ; MODIFIES  : NONE
+0000101E                            89  ; -----------------------------------------------------------------------------
+0000101E                            90  
+0000101E  48E7 C000                 91              MOVEM.L D0-D1,-(A7)
+00001022                            92              
+00001022                            93              ; SET SCREEN RESOLUTION
+00001022  103C 0021                 94              MOVE.B  #33,D0
+00001026  223C 028001E0             95              MOVE.L  #SCRWIDTH<<16|SCRHEIGH,D1
+0000102C  4E4F                      96              TRAP    #15
+0000102E                            97              
+0000102E                            98              ; SET WINDOWED MODE
+0000102E  7201                      99              MOVE.L  #1,D1
+00001030  4E4F                     100              TRAP    #15
+00001032                           101              
+00001032                           102              ; CLEAR SCREEN
+00001032  103C 000B                103              MOVE.B  #11,D0
+00001036  323C FF00                104              MOVE.W  #$FF00,D1
+0000103A  4E4F                     105              TRAP    #15
+0000103C                           106              
+0000103C                           107              ; ENABLE DOUBLE BUFFER
+0000103C  103C 005C                108              MOVE.B  #92,D0
+00001040  123C 0011                109              MOVE.B  #17,D1
+00001044  4E4F                     110              TRAP    #15
+00001046                           111              
+00001046                           112              ; ENABLE TIMED INTERRUPT
+00001046  103C 0020                113              MOVE.B  #32,D0
+0000104A  123C 0006                114              MOVE.B  #6,D1
+0000104E  143C 0081                115              MOVE.B  #$80|SCRINTN,D2
+00001052  7610                     116              MOVE.L  #1000/SCRFPS,D3
+00001054  4E4F                     117              TRAP    #15
+00001056                           118              
+00001056                           119              ; CLEAR INTERRUPT COUNTER
+00001056  4239 0000115E            120              CLR.B   (SCRINTCT)
+0000105C                           121              
+0000105C  4CDF 0003                122              MOVEM.L (A7)+,D0-D1
+00001060  4E75                     123              RTS
+00001062                           124              
+00001062                           125  ; ------------------------------------------------------------------------------
+00001062                           126  SCRPLOT
+00001062                           127  ; UPDATES DOUBLE BUFFER
+00001062                           128  ; INPUT    : NONE
+00001062                           129  ; OUTPUT   : NONE
+00001062                           130  ; MODIFIES : NONE
+00001062                           131  ; ------------------------------------------------------------------------------
+00001062  48A7 C000                132              MOVEM.W D0-D1,-(A7)
+00001066                           133              ; SWITCH BUFFERS
+00001066  103C 005E                134              MOVE.B  #94,D0
+0000106A  4E4F                     135              TRAP    #15
+0000106C                           136              
+0000106C                           137              ; CLEAR HIDDEN BUFFER
+0000106C  103C 000B                138              MOVE.B  #11,D0
+00001070  323C FF00                139              MOVE.W  #$FF00,D1
+00001074  4E4F                     140              TRAP    #15
+00001076  4C9F 0003                141              MOVEM.W (A7)+,D0-D1
+0000107A  4E73                     142              RTE
+0000107C                           143  
+0000107C                           144  ; -----------------------------------------------------------------------------
+0000107C                           145  SCRTIM
+0000107C                           146  ; TIMED INTERRUPT SERVICE ROUTINE, COUNTS TIME FALLING
+0000107C                           147  ; INPUT     : NONE
+0000107C                           148  ; OUTPUT    : NONE
+0000107C                           149  ; MODIFIES  : NONE
+0000107C                           150  ; -----------------------------------------------------------------------------
+0000107C  5239 0000115E            151              ADDQ.B  #1,(SCRINTCT)
+00001082  5239 00001158            152              ADDQ.B  #1,(TIMEFAL)    
+00001088                           153              
+00001088  4E73                     154              RTE
+0000108A                           155  
+0000108A                           156  -------------------- end include --------------------
+0000108A                           157              INCLUDE "BIRD.X68"
+0000108A                           158  ; =============================================================================
+0000108A                           159  ; BIRD MANAGEMENT
+0000108A                           160  ; =============================================================================
+0000108A                           161  
+0000108A                           162  ; ------------------------------------------------------------------------------
+0000108A                           163  BIRDINIT
+0000108A                           164  ; INITIALIZE BIRD.
+0000108A                           165  ; INPUT     : NONE 
+0000108A                           166  ; OUTPUT    : NONE
+0000108A                           167  ; MODIFIES  : NONE
+0000108A                           168  ; ---------------------------------------------------------------------------
+0000108A                           169  
+0000108A  33FC 00F0 00001154       170              MOVE.W  #SCRHEIGH/2,(BIRDPOSY)
+00001092  4279 00001156            171              CLR.W   (BIRDVELY)
+00001098  4E75                     172              RTS
+0000109A                           173              
+0000109A                           174  ; ------------------------------------------------------------------------------
+0000109A                           175  BIRDUPD
+0000109A                           176  ; UPDATES THE BIRD.
+0000109A                           177  ; INPUT    : NONE 
+0000109A                           178  ; OUTPUT   : NONE
+0000109A                           179  ; MODIFIES : NONE
+0000109A                           180  ; ------------------------------------------------------------------------------
+0000109A                           181  
+0000109A  48E7 C000                182              MOVEM.L D0-D1,-(A7)
+0000109E                           183  
+0000109E                           184              ; UPDATE VELOCITY
+0000109E  1039 00001158            185              MOVE.B  (TIMEFAL),D0
+000010A4  B03C 0005                186              CMP.B   #5,D0
+000010A8  6D00 0010                187              BLT     .CORDUPD
+000010AC  13FC 0000 00001158       188              MOVE.B  #0,(TIMEFAL)        ; CLEAR TIME FALLING
+000010B4  5279 00001156            189              ADDQ.W  #1,BIRDVELY
+000010BA                           190              
+000010BA                           191              ; UPDATE BIRD COORDINATES
+000010BA  3039 00001154            192  .CORDUPD    MOVE.W  (BIRDPOSY),D0
+000010C0  D079 00001156            193              ADD.W   (BIRDVELY),D0
+000010C6                           194              
+000010C6                           195              ; CHECK SCREEN COLLISIONS
+000010C6  B07C 01C2                196              CMP.W   #SCRHEIGH-FLOHEIGH-BIRDRAD,D0
+000010CA  6E00 000E                197              BGT     .COLBOT
+000010CE  B07C 000A                198              CMP.W   #BIRDRAD,D0
+000010D2  6D00 000A                199              BLT     .COLTOP
+000010D6  6000 000A                200              BRA     .NOCOL
+000010DA                           201              
+000010DA                           202  ; TODO MANAGE COLLISIONS
+000010DA                           203          
+000010DA                           204              ; COLLISION BOT
+000010DA  6000 000C                205  .COLBOT     BRA     .DONE
+000010DE                           206  
+000010DE                           207              ; COLLISION TOP
+000010DE  6000 0008                208  .COLTOP     BRA     .DONE
+000010E2                           209              
+000010E2                           210              ; STORE POSITION
+000010E2  33C0 00001154            211  .NOCOL      MOVE.W  D0,(BIRDPOSY)
+000010E8                           212  
+000010E8  4CDF 0003                213  .DONE       MOVEM.L (A7)+,D0-D1
+000010EC                           214              
+000010EC  4E75                     215              RTS
+000010EE                           216  
+000010EE                           217  ; ------------------------------------------------------------------------------
+000010EE                           218  BIRDPLOT
+000010EE                           219  ; PLOT THE BIRD.
+000010EE                           220  ; INPUT    : NONE 
+000010EE                           221  ; OUTPUT   : NONE
+000010EE                           222  ; MODIFIES : NONE
+000010EE                           223  ; -----------------------------------------------------------------------------
+000010EE                           224  
+000010EE  48E7 F800                225              MOVEM.L D0-D4,-(A7)
+000010F2                           226  
+000010F2                           227              ; SET PEN COLOR
+000010F2  103C 0050                228              MOVE.B  #80,D0
+000010F6  223C 0000CCCC            229              MOVE.L  #BIRDPCOL,D1
+000010FC  4E4F                     230              TRAP    #15
+000010FE                           231              
+000010FE                           232              ; SET FILL COLOR
+000010FE  103C 0051                233              MOVE.B  #81,D0
+00001102  223C 0000FFFF            234              MOVE.L  #BIRDFCOL,D1
+00001108  4E4F                     235              TRAP    #15
+0000110A                           236  
+0000110A                           237              ; DEFINE COORDINATES
+0000110A  323C 0096                238              MOVE.W  #(SCRWIDTH/4)-BIRDRAD,D1
+0000110E  363C 00AA                239              MOVE.W  #(SCRWIDTH/4)+BIRDRAD,D3
+00001112  3439 00001154            240              MOVE.W  (BIRDPOSY),D2
+00001118  3802                     241              MOVE.W  D2,D4
+0000111A  0442 000A                242              SUB.W  #BIRDRAD,D2
+0000111E  0644 000A                243              ADD.W  #BIRDRAD,D4
+00001122                           244              
+00001122                           245              ; DRAW CIRCLE
+00001122  103C 0058                246              MOVE.B  #88,D0
+00001126  4E4F                     247              TRAP    #15
+00001128                           248              
+00001128  4CDF 001F                249              MOVEM.L (A7)+,D0-D4
+0000112C                           250  
+0000112C  4E75                     251              RTS
+0000112E                           252  
+0000112E                           253  
+0000112E                           254  
+0000112E                           255  -------------------- end include --------------------
+0000112E                           256              
+0000112E                           257  
+0000112E                           258  START
+0000112E                           259  
+0000112E                           260  ; --- INITIALIZATION ----------------------------------------------------------
+0000112E                           261  
+0000112E  4EB8 1000                262              JSR     SYSINIT
+00001132  4EB8 108A                263              JSR     BIRDINIT
+00001136                           264              
+00001136                           265  .LOOP
+00001136                           266  ; --- UPDATE ------------------------------------------------------------------
+00001136                           267  
+00001136  4EB8 109A                268              JSR     BIRDUPD
+0000113A                           269              
+0000113A                           270  ; --- SYNC --------------------------------------------------------------------
+0000113A                           271  
+0000113A  4A39 0000115E            272  .WINT       TST.B   (SCRINTCT)
+00001140  67F8                     273              BEQ     .WINT
+00001142  4239 0000115E            274              CLR.B   (SCRINTCT)
+00001148                           275              
+00001148                           276  ; --- PLOT --------------------------------------------------------------------
+00001148                           277  
+00001148  4EB8 10EE                278              JSR     BIRDPLOT
+0000114C                           279              
+0000114C  4E40                     280              TRAP    #SCRUPDTN
+0000114E                           281              
+0000114E  60E6                     282              BRA     .LOOP
+00001150                           283              
+00001150  FFFF FFFF                284              SIMHALT
+00001154                           285              
+00001154                           286              INCLUDE "VARS.X68"
+00001154                           287  ; =============================================================================
+00001154                           288  ; GAME VARIABLES
+00001154                           289  ; =============================================================================
+00001154                           290  
+00001154                           291  ; --- BIRD RELATED VARIABLES --------------------------------------------------
+00001154                           292  
+00001154                           293  BIRDPOSY    DS.W    1                   ; BIRD POSITION Y
+00001156                           294  BIRDVELY    DS.W    1                   ; BIRD SPEED Y
+00001158                           295  TIMEFAL     DS.B    1                   ; TIME FALLING SINCE SPEED AUGMENT
+0000115A                           296              DS.W    0
+0000115A                           297  
+0000115A                           298  ; --- SCOREBOARD RELATED VARIABLES --------------------------------------------
+0000115A                           299  
+0000115A                           300  SCORE       DS.W    1                   ; ACTUAL GAME SCORE
+0000115C                           301  HIGHSCO     DS.W    1                   ; HIGH SCORE
+0000115E                           302  
+0000115E                           303  
+0000115E                           304  
+0000115E                           305  -------------------- end include --------------------
+0000115E                           306              INCLUDE "SYSVARS.X68"
+0000115E                           307  ; =============================================================================
+0000115E                           308  ; SYSTEM VARIABLES
+0000115E                           309  ; =============================================================================
+0000115E                           310  
+0000115E                           311  ; --- TIMED INTERRUPT RELATED VARIABLES ----------------------------------------
+0000115E                           312  
+0000115E                           313  SCRINTCT    DS.B    1                       ; INTERRUPT COUNTER
+00001160                           314              DS.W    0
+00001160                           315  
+00001160                           316  -------------------- end include --------------------
+00001160                           317  
+00001160                           318              END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+BIRDFCOL            FFFF
+BIRDINIT            108A
+BIRDPCOL            CCCC
+BIRDPLOT            10EE
+BIRDPOSY            1154
+BIRDRAD             A
+BIRDUPD             109A
+BIRDUPD:COLBOT      10DA
+BIRDUPD:COLTOP      10DE
+BIRDUPD:CORDUPD     10BA
+BIRDUPD:DONE        10E8
+BIRDUPD:NOCOL       10E2
+BIRDVELY            1156
+FLOHEIGH            14
+HIGHSCO             115C
+SCOFCOL             0
+SCOLINE1            101
+SCOLINE2            102
+SCORE               115A
+SCRFPS              3C
+SCRHEIGH            1E0
+SCRINIT             101E
+SCRINTCT            115E
+SCRINTN             1
+SCRPLOT             1062
+SCRTIM              107C
+SCRUPDTN            0
+SCRWIDTH            280
+START               112E
+START:LOOP          1136
+START:WINT          113A
+SYSINIT             1000
+TIMEFAL             1158
