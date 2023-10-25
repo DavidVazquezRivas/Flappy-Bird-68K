@@ -4,11 +4,11 @@
 
 ; --- BIRD RELATED CONSTANTS --------------------------------------------------
 
-;BIRDPOSX    EQU     SCRWIDTH/4          BIRD X COORDINATE
+JUMPVELY    EQU     -5
         ; THE FOLLOWING CONSTANTS WILL BE REMOVED WHEN USE AN IMAGE AS A BIRD
-BIRDPCOL    EQU     $0000CCCC
-BIRDFCOL    EQU     $0000FFFF
-BIRDRAD     EQU     10
+BIRDPCOL    EQU     $0000CCCC           ; BIRD PEN COLOR
+BIRDFCOL    EQU     $0000FFFF           ; BIRD FILL COLOR
+BIRDRAD     EQU     15                  ; BIRD RADIUS
 
 
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
@@ -19,7 +19,10 @@ SCOLINE2    EQU     $0102               ; SECOND TEXT LINE COORDINATE
 
 ; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
 
-FLOHEIGH    EQU     20                  ; FLOOR HEIGHT
+SKYCOLOR    EQU     $00FFBF80           ; SKY BACKGROUND COLOR
+FLOCOLOR    EQU     $0035DE3B           ; FLOOR BACKGROUND COLOR
+FLOHEIGH    EQU     30                  ; FLOOR HEIGHT
+
 
 *~Font name~Fixedsys~
 *~Font size~18~

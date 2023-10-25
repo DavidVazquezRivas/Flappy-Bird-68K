@@ -22,13 +22,22 @@ BIRDUPD
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
 
-            MOVEM.L D0-D1,-(A7)
+            MOVEM.L D0-D2,-(A7)
 
             ; UPDATE VELOCITY
-            MOVE.B  (TIMEFAL),D0
-            CMP.B   #5,D0
-            BLT     .CORDUPD
-            MOVE.B  #0,(TIMEFAL)        ; CLEAR TIME FALLING
+            MOVE.B  (KBDEDGE),D2        ; CHECK IF SHOULD JUMP
+            BTST    #0,D2
+            BEQ     .NOJUMP
+            
+            MOVE.B  #0,(TIMEFAL)        ; TRY CLR.B
+            MOVE.W  #JUMPVELY,(BIRDVELY)
+            BRA     .CORDUPD
+            
+.NOJUMP     MOVE.B  (TIMEFAL),D0        ; CHECK IF SHOULD ACCELERATE DOWN
+            CMP.B   #4,D0
+            BLT     .CORDUPD            
+            
+            MOVE.B  #0,(TIMEFAL)        ; ACCELERATE    ;TRY CLR.B
             ADDQ.W  #1,BIRDVELY
             
             ; UPDATE BIRD COORDINATES
@@ -53,7 +62,7 @@ BIRDUPD
             ; STORE POSITION
 .NOCOL      MOVE.W  D0,(BIRDPOSY)
 
-.DONE       MOVEM.L (A7)+,D0-D1
+.DONE       MOVEM.L (A7)+,D0-D2
             
             RTS
 

@@ -2,7 +2,12 @@
 ; SYSTEM VARIABLES
 ; =============================================================================
 
-; --- TIMED INTERRUPT RELATED VARIABLES ----------------------------------------
+; --- KEYBOARD RELATED VARIABLES ----------------------------------------------
+
+KBDVAL      DS.B    1                       ; KEY STATE
+KBDEDGE     DS.B    1                       ; KEY EDGE
+
+; --- TIMED INTERRUPT RELATED VARIABLES ---------------------------------------
 
 SCRINTCT    DS.B    1                       ; INTERRUPT COUNTER
             DS.W    0

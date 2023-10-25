@@ -11,6 +11,7 @@
             INCLUDE "SYSCONST.X68"
             INCLUDE "SYSTEM.X68"
             INCLUDE "BIRD.X68"
+            INCLUDE "BACKGROUND.X68"
             
 
 START
@@ -21,7 +22,14 @@ START
             JSR     BIRDINIT
             
 .LOOP
+
 ; --- UPDATE ------------------------------------------------------------------
+
+; READ INPUT DEVICES
+
+            TRAP    #KBDUPDTN
+
+; UPDATE GAME LOGIC
 
             JSR     BIRDUPD
             
@@ -33,6 +41,7 @@ START
             
 ; --- PLOT --------------------------------------------------------------------
 
+            JSR     BACKPLOT
             JSR     BIRDPLOT
             
             TRAP    #SCRUPDTN
