@@ -34,7 +34,7 @@ BIRDUPD
             BRA     .CORDUPD
             
 .NOJUMP     MOVE.B  (TIMEFAL),D0        ; CHECK IF SHOULD ACCELERATE DOWN
-            CMP.B   #4,D0
+            CMP.B   #VELUPDRT,D0
             BLT     .CORDUPD            
             
             MOVE.B  #0,(TIMEFAL)        ; ACCELERATE    ;TRY CLR.B
@@ -54,10 +54,11 @@ BIRDUPD
 ; TODO MANAGE COLLISIONS
         
             ; COLLISION BOT
-.COLBOT     BRA     .DONE
+.COLBOT     MOVE.W  #SCRHEIGH-FLOHEIGH-BIRDRAD,(BIRDPOSY)
+            BRA     .DONE
 
             ; COLLISION TOP
-.COLTOP     BRA     .DONE
+.COLTOP     ;BRA     .DONE
             
             ; STORE POSITION
 .NOCOL      MOVE.W  D0,(BIRDPOSY)
@@ -101,6 +102,9 @@ BIRDPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
+
+
 
 
 
