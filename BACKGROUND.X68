@@ -11,9 +11,9 @@ BACKPLOT
 ; -----------------------------------------------------------------------------
 
             JSR SKYPLOT
-            JSR FLOPLOT
+            BRA FLOPLOT
             ; TODO CLOUD PLOT
-            RTS
+            ; RTS 
             
 ; -----------------------------------------------------------------------------
 SKYPLOT
@@ -72,6 +72,7 @@ FLOPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 *~Font name~Fixedsys~
 *~Font size~18~
 *~Tab type~1~

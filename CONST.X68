@@ -5,7 +5,6 @@
 ; --- BIRD RELATED CONSTANTS --------------------------------------------------
 
 JUMPVELY    EQU     -10
-VELUPDRT    EQU     2
         ; THE FOLLOWING CONSTANTS WILL BE REMOVED WHEN USE AN IMAGE AS A BIRD
 BIRDPCOL    EQU     $0000CCCC           ; BIRD PEN COLOR
 BIRDFCOL    EQU     $0000FFFF           ; BIRD FILL COLOR
@@ -13,9 +12,12 @@ BIRDRAD     EQU     15                  ; BIRD RADIUS
 
 ; --- PIPE RELATED CONSTANTS --------------------------------------------------
 
-PIPEVELX    EQU     -20
-PIPERATE    EQU     50
-PIPEWIDTH   EQU     50
+PIPEPCOL    EQU     $00151a30           ; PIPE PEN COLOR
+PIPEFCOL    EQU     $0020284D           ; PIPE FILL COLOR
+PIPEVELX    EQU     -5                  ; PIPE X SPEED
+PIPEWIDT    EQU     50                  ; PIPE WIDTH
+PIPEGAPS    EQU     120                 ; PIPE GAP SIZE
+PIPEAGTP    EQU     1                   ; PIPE AGENT TYPE CODE
 
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
 
@@ -28,6 +30,7 @@ SCOLINE2    EQU     $0102               ; SECOND TEXT LINE COORDINATE
 SKYCOLOR    EQU     $00FFBF80           ; SKY BACKGROUND COLOR
 FLOCOLOR    EQU     $0035DE3B           ; FLOOR BACKGROUND COLOR
 FLOHEIGH    EQU     60                  ; FLOOR HEIGHT
+
 
 
 

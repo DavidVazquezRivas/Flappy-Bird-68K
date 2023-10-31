@@ -2,25 +2,25 @@
 ; BIRD MANAGEMENT
 ; =============================================================================
 
-; ------------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 BIRDINIT
 ; INITIALIZE BIRD.
 ; INPUT     : NONE 
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
-; ---------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 
             MOVE.W  #SCRHEIGH/2,(BIRDPOSY)
             CLR.W   (BIRDVELY)
             RTS
             
-; ------------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 BIRDUPD
 ; UPDATES THE BIRD.
 ; INPUT    : NONE 
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
-; ------------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 
             MOVEM.L D0-D2,-(A7)
 
@@ -29,16 +29,14 @@ BIRDUPD
             BTST    #0,D2
             BEQ     .NOJUMP
             
-            MOVE.B  #0,(TIMEFAL)        ; TRY CLR.B
             MOVE.W  #JUMPVELY,(BIRDVELY)
             BRA     .CORDUPD
             
-.NOJUMP     MOVE.B  (TIMEFAL),D0        ; CHECK IF SHOULD ACCELERATE DOWN
-            CMP.B   #VELUPDRT,D0
-            BLT     .CORDUPD            
-            
-            MOVE.B  #0,(TIMEFAL)        ; ACCELERATE    ;TRY CLR.B
-            ADDQ.W  #1,BIRDVELY
+.NOJUMP     MOVE.B  (SCRCYCCT),D0       ; CHECK IF SHOULD ACCELERATE DOWN
+            AND.B   #$01,D0
+            BNE     .CORDUPD            
+
+            ADDQ.W  #1,BIRDVELY          ; ACCELERATE
             
             ; UPDATE BIRD COORDINATES
 .CORDUPD    MOVE.W  (BIRDPOSY),D0
@@ -67,7 +65,7 @@ BIRDUPD
             
             RTS
 
-; ------------------------------------------------------------------------------
+; -----------------------------------------------------------------------------
 BIRDPLOT
 ; PLOT THE BIRD.
 ; INPUT    : NONE 
@@ -102,6 +100,7 @@ BIRDPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
 
 
 

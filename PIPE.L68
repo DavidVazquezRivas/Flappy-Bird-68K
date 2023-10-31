@@ -1,0 +1,104 @@
+000014C4 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 31/10/2023 15:06:12
+
+00000000                             1  ; =============================================================================
+00000000                             2  ; PIPE MANAGEMENT (AGENT)
+00000000                             3  ; PIPEPOSX (W)
+00000000                             4  ; PIPETOPH (B)
+00000000                             5  ; =============================================================================
+00000000                             6  
+00000000                             7  ; -----------------------------------------------------------------------------
+00000000                             8  PIPEINIT
+00000000                             9  ; INITIALIZE PIPE.
+00000000                            10  ; INPUT     : NONE 
+00000000                            11  ; OUTPUT    : NONE
+00000000                            12  ; MODIFIES  : NONE
+00000000                            13  ; -----------------------------------------------------------------------------
+00000000                            14  
+00000000  2F00                      15              MOVE.L  D0,-(A7)
+00000002                            16              
+Line 17 ERROR: Undefined symbol
+00000002  33FC BD16 005455B8        17              MOVE.W  #SCRWIDTH,(PIPEPOSX)
+Line 18 ERROR: Undefined symbol
+0000000A  4EB9 004DBD16             18              JSR UTLRAND
+Line 19 ERROR: Invalid syntax
+00000010                            19              ADD.L   #(SCRHEIGH-PIPEGAPS-FLOHEIGH)/2,D0
+Line 20 ERROR: Undefined symbol
+00000010  13C0 005455B8             20              MOVE.B  D0,(PIPETOPH)
+00000016                            21              
+00000016  201F                      22              MOVE.L  (A7)+,D0
+00000018  4E75                      23              RTS
+0000001A                            24              
+0000001A                            25  ; -----------------------------------------------------------------------------
+Line 26 ERROR: Symbol value differs between first and second pass
+0000001A                            26  PIPEUPD
+0000001A                            27  ; UPDATES PIPE.
+0000001A                            28  ; INPUT     : NONE
+0000001A                            29  ; OUTPUT    : NONE
+0000001A                            30  ; MODIFIES  : NONE
+0000001A                            31  ; -----------------------------------------------------------------------------
+0000001A                            32  
+Line 33 ERROR: Undefined symbol
+0000001A  0679 BD16 005455B8        33              ADD.W   #PIPEVELX,(PIPEPOSX)
+00000022                            34           
+00000022                            35              ; TODO HANDLE COLLISIONS
+00000022  4E75                      36              RTS
+00000024                            37  
+00000024                            38  ; -----------------------------------------------------------------------------
+Line 39 ERROR: Symbol value differs between first and second pass
+00000024                            39  PIPEPLOT
+00000024                            40  ; PLOT THE PIPE.
+00000024                            41  ; INPUT     : NONE
+00000024                            42  ; OUTPUT    : NONE
+00000024                            43  ; MODIFIES  : NONE
+00000024                            44  ; -----------------------------------------------------------------------------
+00000024                            45      
+00000024  48E7 F800                 46              MOVEM.L D0-D4,-(A7)
+00000028                            47              
+00000028                            48              ; SET PEN AND FILL COLORS
+00000028  103C 0050                 49              MOVE.B  #80,D0
+Line 50 ERROR: Undefined symbol
+0000002C  223C 004DBD16             50              MOVE.L  #PIPEPCOL,D1
+00000032  4E4F                      51              TRAP    #15
+00000034  103C 0051                 52              MOVE.B  #81,D0
+Line 53 ERROR: Undefined symbol
+00000038  223C 004DBD16             53              MOVE.L  #PIPEFCOL,D1
+0000003E  4E4F                      54              TRAP    #15
+00000040                            55              
+00000040                            56              ; PLOT TOP HALF
+Line 57 ERROR: Undefined symbol
+00000040  3239 004DBD16             57              MOVE.W  (PIPEPOSX),D1
+00000046  4242                      58              CLR.W   D2
+00000048  3601                      59              MOVE.W  D1,D3
+Line 60 ERROR: Undefined symbol
+0000004A  0643 BD16                 60              ADD.W   #PIPEWIDT,D3
+0000004E  4244                      61              CLR.W   D4
+Line 62 ERROR: Undefined symbol
+00000050  1839 004DBD16             62              MOVE.B  (PIPETOPH),D4
+00000056  103C 0057                 63              MOVE.B  #87,D0
+0000005A  4E4F                      64              TRAP    #15
+0000005C                            65              
+0000005C                            66              ; PLOT BOTTOM HALF
+0000005C  3404                      67              MOVE.W  D4,D2
+Line 68 ERROR: Undefined symbol
+0000005E  0642 BD16                 68              ADD.W   #PIPEGAPS,D2
+Line 69 ERROR: Comma expected
+00000062                            69              MOVE.W  #SCRHEIGH-FLOHEIGH,D4
+00000062  4E4F                      70              TRAP    #15
+00000064                            71              
+00000064  4CDF 001F                 72              MOVEM.L (A7)+,D0-D4
+00000068  4E75                      73              RTS
+0000006A                            74  
+Line 75 WARNING: END directive missing, starting address not set
+
+14 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+PIPEINIT            0
+PIPEPLOT            2A
+PIPEUPD             20

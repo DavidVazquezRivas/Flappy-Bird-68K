@@ -6,13 +6,19 @@
 
 BIRDPOSY    DS.W    1                   ; BIRD POSITION Y
 BIRDVELY    DS.W    1                   ; BIRD SPEED Y
-TIMEFAL     DS.B    1                   ; TIME FALLING SINCE SPEED AUGMENT
+
+; --- PIPE RELATED VARIABLES --------------------------------------------------
+
+PIPEPOSX    DS.W    1                   ; PIPE POSITION X
+PIPETOPH    DS.B    1                   ; PIPE TOP SIZE HEIGHT
             DS.W    0
 
 ; --- SCOREBOARD RELATED VARIABLES --------------------------------------------
 
 SCORE       DS.W    1                   ; ACTUAL GAME SCORE
 HIGHSCO     DS.W    1                   ; HIGH SCORE
+
+
 
 
 
