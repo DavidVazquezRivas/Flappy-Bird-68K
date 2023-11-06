@@ -16,6 +16,7 @@ SYSINIT
             
             JSR     KBDINIT
             JSR     SCRINIT
+            JSR     DMMINIT
             
             ; SET USER MODE AND ALLOW INTERRUPTIONS
             MOVE.W  SR,-(A7)
@@ -135,6 +136,7 @@ KBDUPD
             RTE
 
     
+
 
 
 *~Font name~Fixedsys~

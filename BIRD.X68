@@ -32,9 +32,9 @@ BIRDUPD
             MOVE.W  #JUMPVELY,(BIRDVELY)
             BRA     .CORDUPD
             
-.NOJUMP     MOVE.B  (SCRCYCCT),D0       ; CHECK IF SHOULD ACCELERATE DOWN
-            AND.B   #$01,D0
-            BNE     .CORDUPD            
+.NOJUMP     ;MOVE.B  (SCRCYCCT),D0       ; CHECK IF SHOULD ACCELERATE DOWN
+            ;AND.B   #$01,D0
+            ;BNE     .CORDUPD            
 
             ADDQ.W  #1,BIRDVELY          ; ACCELERATE
             
@@ -77,17 +77,18 @@ BIRDPLOT
 
             ; SET PEN COLOR
             MOVE.B  #80,D0
-            MOVE.L  #BIRDPCOL,D1
+            CLR.L   D1
+            MOVE.W  (BIRDPCOL),D1
             TRAP    #15
             
             ; SET FILL COLOR
             MOVE.B  #81,D0
-            MOVE.L  #BIRDFCOL,D1
+            MOVE.W  (BIRDFCOL),D1
             TRAP    #15
 
             ; DEFINE COORDINATES
-            MOVE.W  #(SCRWIDTH/4)-BIRDRAD,D1
-            MOVE.W  #(SCRWIDTH/4)+BIRDRAD,D3
+            MOVE.W  #(BIRDPOSX)-BIRDRAD,D1
+            MOVE.W  #(BIRDPOSX)+BIRDRAD,D3
             MOVE.W  (BIRDPOSY),D2
             MOVE.W  D2,D4
             SUB.W  #BIRDRAD,D2
@@ -100,6 +101,8 @@ BIRDPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
+
 
 
 

@@ -7,8 +7,8 @@
 
             ORG     $1000
             
-            INCLUDE "CONST.X68"
             INCLUDE "SYSCONST.X68"
+            INCLUDE "CONST.X68"
             INCLUDE "LIB/DMMCONST.X68"
             INCLUDE "LIB/DMMCODE.X68"
             INCLUDE "SYSTEM.X68"
@@ -24,8 +24,14 @@ START
 ; --- INITIALIZATION ----------------------------------------------------------
 
             JSR     SYSINIT
+            JSR     UTLINIT
             JSR     BIRDINIT
-            JSR     PIPEINIT
+            
+            LEA     PIPEINIT,A1
+            LEA     PIPEUPD,A2
+            LEA     PIPEPLOT,A3
+            MOVE.W  #PIPEAGTP,D0
+            JSR     AGLADD
             
 .LOOP
 
@@ -36,9 +42,9 @@ START
             TRAP    #KBDUPDTN
 
             ; UPDATE GAME LOGIC
-
+            
+            JSR     AGLUPD
             JSR     BIRDUPD
-            JSR     PIPEUPD
             
 ; --- SYNC --------------------------------------------------------------------
 
@@ -49,8 +55,8 @@ START
 ; --- PLOT --------------------------------------------------------------------
 
             JSR     BACKPLOT
+            JSR     AGLPLOT
             JSR     BIRDPLOT
-            JSR     PIPEPLOT
             
             TRAP    #SCRUPDTN
             
@@ -64,6 +70,8 @@ START
             INCLUDE "LIB/DMMVARS.X68"
 
     		END    START
+
+
 
 
 

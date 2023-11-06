@@ -1,23 +1,23 @@
 ; =============================================================================
 ; PIPE MANAGEMENT (AGENT)
-; PIPEPOSX (W) +0
-; PIPETOPH (B) +2
+; PIPEPOSX (W) (A0)
+; PIPETOPH (B) 2(A0)
 ; =============================================================================
 
 ; -----------------------------------------------------------------------------
 PIPEINIT
 ; INITIALIZE PIPE.
-; INPUT     : NONE 
+; INPUT     : A0 POINTER TO INSTANCE VARIABLES
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
             MOVE.L  D0,-(A7)
             
-            MOVE.W  #SCRWIDTH,(PIPEPOSX)
+            MOVE.W  #SCRWIDTH,(A0)
             JSR UTLRAND
             ADD.L   #(SCRHEIGH-PIPEGAPS-FLOHEIGH)/2,D0
-            MOVE.B  D0,(PIPETOPH)
+            MOVE.B  D0,2(A0)
             
             MOVE.L  (A7)+,D0
             RTS
@@ -25,20 +25,63 @@ PIPEINIT
 ; -----------------------------------------------------------------------------
 PIPEUPD
 ; UPDATES PIPE.
-; INPUT     : NONE
+; INPUT     : A0 POINTER TO INSTANCE VARIABLES
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+            ; UPDATE POSITION
+            ADD.W   #PIPEVELX,(A0)
 
-            ADD.W   #PIPEVELX,(PIPEPOSX)
+            ; CHECK AND HANDLE COLLISIONS
+            BRA PIPECOLI
+            
+; -----------------------------------------------------------------------------
+PIPECOLI
+; CHECKS AND HANDLE PIPE COLLISIONS
+; INPUT     : A0 POINTER TO INSTANCE VARIABLE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; -----------------------------------------------------------------------------
+            MOVE.L  D0,-(A7)
+            MOVE.L  D1,-(A7)
          
-            ; TODO HANDLE COLLISIONS
+            ; COLLISION WITH SCREEN
+            MOVE.W  (A0),D0
+            ADD.W   #PIPEWIDT,D0
+            BPL     .NOKILL
+            JSR AGLKILL
+            
+            ; COLLISION WITH BIRD
+.NOKILL     CMP.W   #BIRDPOSX+BIRDRAD+PIPEWIDT,D0
+            BPL     .NOCOL
+            CMP.W   #BIRDPOSX-BIRDRAD,D0
+            BMI     .NOCOL
+            
+            ; BIRD IS IN PIPE X RANGE
+            CLR.L   D0
+            MOVE.B  2(A0),D0
+            MOVE.W  (BIRDPOSY),D1
+            SUB.W   #BIRDRAD,D1
+            CMP.W   D1,D0
+            BPL     .COL
+            ADD.W   #PIPEGAPS,D0
+            ADD.W   #2*BIRDRAD,D1
+            CMP.W   D1,D0
+            BMI     .COL
+
+            BRA     .NOCOL
+.COL        MOVE.L  #DARKRED<<16|LIGHTRED,(BIRDPCOL) ; TURN BIRD TO RED
+            BRA     .END
+
+.NOCOL      MOVE.L  #DKYELLOW<<16|LGYELLOW,(BIRDPCOL) ; TURN BIRD TO YELLOW
+.END        MOVE.L  (A7)+,D1
+            MOVE.L  (A7)+,D0
             RTS
 
 ; -----------------------------------------------------------------------------
 PIPEPLOT
 ; PLOT THE PIPE.
-; INPUT     : NONE
+; INPUT     : A0 POINTER TO INSTANCE VARIABLES
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
@@ -54,12 +97,12 @@ PIPEPLOT
             TRAP    #15
             
             ; PLOT TOP HALF
-            MOVE.W  (PIPEPOSX),D1
+            MOVE.W  (A0),D1
             CLR.W   D2
             MOVE.W  D1,D3
             ADD.W   #PIPEWIDT,D3
             CLR.W   D4
-            MOVE.B  (PIPETOPH),D4
+            MOVE.B  2(A0),D4
             MOVE.B  #87,D0
             TRAP    #15
             
@@ -71,6 +114,8 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
+
 
 
 *~Font name~Fixedsys~

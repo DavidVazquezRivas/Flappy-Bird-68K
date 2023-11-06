@@ -6,17 +6,15 @@
 
 BIRDPOSY    DS.W    1                   ; BIRD POSITION Y
 BIRDVELY    DS.W    1                   ; BIRD SPEED Y
-
-; --- PIPE RELATED VARIABLES --------------------------------------------------
-
-PIPEPOSX    DS.W    1                   ; PIPE POSITION X
-PIPETOPH    DS.B    1                   ; PIPE TOP SIZE HEIGHT
-            DS.W    0
+BIRDPCOL    DC.W    DKYELLOW            ; BIRD PEN COLOR
+BIRDFCOL    DC.W    LGYELLOW            ; BIRD FILL COLOR
 
 ; --- SCOREBOARD RELATED VARIABLES --------------------------------------------
 
 SCORE       DS.W    1                   ; ACTUAL GAME SCORE
 HIGHSCO     DS.W    1                   ; HIGH SCORE
+
+
 
 
 
