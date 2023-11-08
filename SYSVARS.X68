@@ -10,8 +10,9 @@ KBDEDGE     DS.B    1                       ; KEY EDGE
 ; --- TIMED INTERRUPT RELATED VARIABLES ---------------------------------------
 
 SCRINTCT    DS.B    1                       ; INTERRUPT COUNTER
-SCRCYCCT    DS.B    1                       ; SCREEN 
+SCRCYCCT    DS.B    1                       ; SCREEN CYCLE COUNTER
             DS.W    0
+
 
 
 

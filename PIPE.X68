@@ -50,6 +50,7 @@ PIPECOLI
             ADD.W   #PIPEWIDT,D0
             BPL     .NOKILL
             JSR AGLKILL
+            BRA     .END
             
             ; COLLISION WITH BIRD
 .NOKILL     CMP.W   #BIRDPOSX+BIRDRAD+PIPEWIDT,D0
@@ -114,6 +115,7 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 
 

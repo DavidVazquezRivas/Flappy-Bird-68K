@@ -26,8 +26,31 @@ GAMEUPD
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
+            JSR     NEWPIPE
             JSR     AGLUPD
             BRA     BIRDUPD
+
+; -----------------------------------------------------------------------------
+NEWPIPE
+; CREATES A NEW PIPE IN CASE IT'S NECESSARY.
+; INPUT     : NONE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; -----------------------------------------------------------------------------
+
+            MOVEM.L D0/A1-A3,-(A7)
+            
+            MOVE.B  (SCRCYCCT),D0
+            ANDI.B  #MASKNWPP,D0
+            BNE     .GOUPD
+            LEA     PIPEINIT,A1
+            LEA     PIPEUPD,A2
+            LEA     PIPEPLOT,A3
+            MOVE    #PIPEAGTP,D0
+            JSR     AGLADD
+            
+.GOUPD      MOVEM.L (A7)+,D0/A1-A3
+            RTS
 
 ; -----------------------------------------------------------------------------
 GAMEPLOT
@@ -41,6 +64,8 @@ GAMEPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
+
 
 
 *~Font name~Fixedsys~
