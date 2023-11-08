@@ -14,6 +14,7 @@
             INCLUDE "SYSTEM.X68"
             INCLUDE "LIB/AGLCODE.X68"
             INCLUDE "LIB/UTLCODE.X68"
+            INCLUDE "GAME.X68"
             INCLUDE "BIRD.X68"
             INCLUDE "PIPE.X68"
             INCLUDE "BACKGROUND.X68"
@@ -23,15 +24,10 @@ START
 
 ; --- INITIALIZATION ----------------------------------------------------------
 
+            ORI.W   #$0700,SR
             JSR     SYSINIT
             JSR     UTLINIT
-            JSR     BIRDINIT
-            
-            LEA     PIPEINIT,A1
-            LEA     PIPEUPD,A2
-            LEA     PIPEPLOT,A3
-            MOVE.W  #PIPEAGTP,D0
-            JSR     AGLADD
+            JSR     GAMEINIT
             
 .LOOP
 
@@ -41,10 +37,7 @@ START
 
             TRAP    #KBDUPDTN
 
-            ; UPDATE GAME LOGIC
-            
-            JSR     AGLUPD
-            JSR     BIRDUPD
+            JSR     GAMEUPD
             
 ; --- SYNC --------------------------------------------------------------------
 
@@ -54,9 +47,7 @@ START
             
 ; --- PLOT --------------------------------------------------------------------
 
-            JSR     BACKPLOT
-            JSR     AGLPLOT
-            JSR     BIRDPLOT
+            JSR     GAMEPLOT
             
             TRAP    #SCRUPDTN
             
@@ -70,6 +61,7 @@ START
             INCLUDE "LIB/DMMVARS.X68"
 
     		END    START
+
 
 
 
