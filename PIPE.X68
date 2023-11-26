@@ -50,6 +50,7 @@ PIPECOLI
             ADD.W   #PIPEWIDT,D0
             BPL     .NOKILL
             JSR AGLKILL
+            ADDQ.W  #1,(SCORE)
             BRA     .END
             
             ; COLLISION WITH BIRD
@@ -70,6 +71,9 @@ PIPECOLI
             CMP.W   D1,D0
             BMI     .COL
 
+            ; TODO ARREGLAR BUG DE COLISION, EN VEZ DE CAMBIAR EL COLOR AQUI
+            ; PROBAR CON UNA VARIABLE QUE INDIQUE SI HAY ALGUN PIPE SOBRE LA BOLA,
+            ; Y EL CAMBIADO DE COLOR HACERLO EN BIRDUPD
             BRA     .NOCOL
 .COL        MOVE.L  #DARKRED<<16|LIGHTRED,(BIRDPCOL) ; TURN BIRD TO RED
             BRA     .END
@@ -115,6 +119,9 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
+
+
 
 
 

@@ -19,17 +19,19 @@ PIPEGAPS    EQU     120                 ; PIPE GAP SIZE
 PIPEAGTP    EQU     1                   ; PIPE AGENT TYPE CODE
 MASKNWPP    EQU     %00111111           ; NEW PIPE MASK 
 
-; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
-
-SCOFCOL     EQU     $00000000           ; TEXT BACKGROUND COLOR
-SCOLINE1    EQU     $0101               ; FIRST TEXT LINE COORDINATE 
-SCOLINE2    EQU     $0102               ; SECOND TEXT LINE COORDINATE
-
 ; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
 
 SKYCOLOR    EQU     $00FFBF80           ; SKY BACKGROUND COLOR
 FLOCOLOR    EQU     $0035DE3B           ; FLOOR BACKGROUND COLOR
 FLOHEIGH    EQU     60                  ; FLOOR HEIGHT
+
+; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
+
+SCOFCOL     EQU     FLOCOLOR           ; TEXT BACKGROUND COLOR
+SCOLINE     EQU     $101D              ; SCORE TEXT COORDINATE 
+HSCOLINE    EQU     $101E              ; HIGHSCORE TEXT COORDINATE
+
+
 
 
 

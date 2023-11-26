@@ -12,6 +12,7 @@
             INCLUDE "LIB/DMMCONST.X68"
             INCLUDE "LIB/DMMCODE.X68"
             INCLUDE "SYSTEM.X68"
+            INCLUDE "SCORE.X68"
             INCLUDE "LIB/AGLCODE.X68"
             INCLUDE "LIB/UTLCODE.X68"
             INCLUDE "GAME.X68"
@@ -61,6 +62,7 @@ START
             INCLUDE "LIB/DMMVARS.X68"
 
     		END    START
+
 
 
 

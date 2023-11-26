@@ -11,6 +11,7 @@ GAMEINIT
 ; ------------------------------------------------------------------------------        
 
             JSR     BIRDINIT
+            JSR     SCOINIT
             
             LEA     PIPEINIT,A1
             LEA     PIPEUPD,A2
@@ -26,7 +27,6 @@ GAMEUPD
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
-            JSR     NEWPIPE
             JSR     AGLUPD
             BRA     BIRDUPD
 
@@ -50,7 +50,7 @@ NEWPIPE
             JSR     AGLADD
             
 .GOUPD      MOVEM.L (A7)+,D0/A1-A3
-            RTS
+            RTE
 
 ; -----------------------------------------------------------------------------
 GAMEPLOT
@@ -61,9 +61,11 @@ GAMEPLOT
 ; -----------------------------------------------------------------------------
             
             JSR     BACKPLOT
+            JSR     SCOPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
 
 
 
