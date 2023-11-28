@@ -50,7 +50,6 @@ PIPECOLI
             ADD.W   #PIPEWIDT,D0
             BPL     .NOKILL
             JSR AGLKILL
-            ADDQ.W  #1,(SCORE)
             BRA     .END
             
             ; COLLISION WITH BIRD
@@ -58,9 +57,10 @@ PIPECOLI
             BPL     .NOCOL
             CMP.W   #BIRDPOSX-BIRDRAD,D0
             BMI     .NOCOL
+
             
             ; BIRD IS IN PIPE X RANGE
-            CLR.L   D0
+.NOPOINT    CLR.L   D0
             MOVE.B  2(A0),D0
             MOVE.W  (BIRDPOSY),D1
             SUB.W   #BIRDRAD,D1
@@ -71,14 +71,19 @@ PIPECOLI
             CMP.W   D1,D0
             BMI     .COL
 
-            ; TODO ARREGLAR BUG DE COLISION, EN VEZ DE CAMBIAR EL COLOR AQUI
-            ; PROBAR CON UNA VARIABLE QUE INDIQUE SI HAY ALGUN PIPE SOBRE LA BOLA,
-            ; Y EL CAMBIADO DE COLOR HACERLO EN BIRDUPD
             BRA     .NOCOL
-.COL        MOVE.L  #DARKRED<<16|LIGHTRED,(BIRDPCOL) ; TURN BIRD TO RED
+.COL        MOVE.L  #DARKRED<<16|LIGHTRED,(BIRDPCOL) ; TURN BIRD TO RED TEMPORAL
+            MOVE.B  #SNDDIE,D7
+            TRAP    #SNDPLTN
             BRA     .END
 
-.NOCOL      MOVE.L  #DKYELLOW<<16|LGYELLOW,(BIRDPCOL) ; TURN BIRD TO YELLOW
+.NOCOL      MOVE.L  #DKYELLOW<<16|LGYELLOW,(BIRDPCOL) ; TURN BIRD TO YELLOW TEMPORAL
+            
+            ; SCORE INCREASE
+            CMP.W   #BIRDPOSX-PIPEWIDT-BIRDRAD,(A0)
+            BNE     .END
+            JSR     SCOINC
+            
 .END        MOVE.L  (A7)+,D1
             MOVE.L  (A7)+,D0
             RTS
@@ -119,6 +124,7 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 
 

@@ -29,6 +29,8 @@ BIRDUPD
             BTST    #0,D2
             BEQ     .NOJUMP
             
+            MOVE.B  #SNDJUMP,D7         ; PLAY SOUND
+            TRAP    #SNDPLTN
             MOVE.W  #JUMPVELY,(BIRDVELY)
             BRA     .CORDUPD
             
@@ -101,6 +103,7 @@ BIRDPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
 
 
 

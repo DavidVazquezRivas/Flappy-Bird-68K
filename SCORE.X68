@@ -13,6 +13,18 @@ SCOINIT
             CLR.W   (HIGHSCO)
             RTS
             
+; -----------------------------------------------------------------------------
+SCOINC
+; INCREASES THE SCORE BY 1
+; INPUT     : NONE
+; OUTPUT    : SCORE = SCORE + 1
+; MODIFIES  : NONE (APART FROM OUTPUT)
+; -----------------------------------------------------------------------------
+            ADDQ.W  #1,(SCORE)
+            MOVE.B  #SNDSCO,D7
+            TRAP    #SNDPLTN
+            RTS
+            
 ; ------------------------------------------------------------------------------
 SCOPLOT
 ; PLOT THE SCOREBOARD
@@ -57,6 +69,7 @@ SCOPLOT
             
 .SCOTXT     DC.B    'SCORE: ',0
 .HISCOTXT   DC.B    'HIGHSCORE: ',0
+
 
 
 
