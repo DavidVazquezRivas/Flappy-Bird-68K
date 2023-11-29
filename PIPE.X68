@@ -60,7 +60,7 @@ PIPECOLI
 
             
             ; BIRD IS IN PIPE X RANGE
-.NOPOINT    CLR.L   D0
+            CLR.L   D0
             MOVE.B  2(A0),D0
             MOVE.W  (BIRDPOSY),D1
             SUB.W   #BIRDRAD,D1
@@ -73,7 +73,13 @@ PIPECOLI
 
             BRA     .NOCOL
 .COL        MOVE.L  #DARKRED<<16|LIGHTRED,(BIRDPCOL) ; TURN BIRD TO RED TEMPORAL
-            MOVE.B  #SNDDIE,D7
+
+            ; STOP ALL SOUNDS
+            MOVE.B  #76,D0
+            MOVE.L  #3,D2
+            TRAP    #15
+            
+            MOVE.B  #SNDDIE,D7  ; PLAY DIE SOUND
             TRAP    #SNDPLTN
             BRA     .END
 
@@ -124,6 +130,7 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 
 

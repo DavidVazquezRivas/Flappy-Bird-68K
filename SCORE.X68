@@ -20,9 +20,19 @@ SCOINC
 ; OUTPUT    : SCORE = SCORE + 1
 ; MODIFIES  : NONE (APART FROM OUTPUT)
 ; -----------------------------------------------------------------------------
+            MOVEM.L D0/D2/D7,-(A7)
+
             ADDQ.W  #1,(SCORE)
+            ; STOP ALL SOUNDS
+            MOVE.B  #76,D0
+            MOVE.L  #3,D2
+            TRAP    #15
+            
+            ; PLAY SOUND
             MOVE.B  #SNDSCO,D7
             TRAP    #SNDPLTN
+            
+            MOVEM.L (A7)+,D0/D2/D7
             RTS
             
 ; ------------------------------------------------------------------------------
@@ -69,6 +79,7 @@ SCOPLOT
             
 .SCOTXT     DC.B    'SCORE: ',0
 .HISCOTXT   DC.B    'HIGHSCORE: ',0
+
 
 
 
