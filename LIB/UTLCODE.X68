@@ -15,6 +15,34 @@ UTLINIT
             MOVE.B  D1,(UTLRNDIX)
             MOVEM.L (A7)+,D0-D1
             RTS
+            
+; -----------------------------------------------------------------------------
+UTLPRINT
+; PRINT SCREEN CENTERED TEXT
+; INPUT    : A0 POINTER TO ZERO-TERMINATED STRING
+;            D0.B SCREEN ROW TO PRINT TEXT
+; OUTPUT   : D0.B NEXT ROW
+; MODIFIES : NONE (ASIDE OF OUTPUT)
+; -----------------------------------------------------------------------------
+            MOVEM.L D0-D1/A0-A1,-(A7)
+            CLR.B   D1
+            MOVE.L  A0,A1
+.LOOP       TST.B   (A0)+
+            BEQ     .ENDLOOP
+            ADDQ.B  #1,D1
+            BRA     .LOOP
+.ENDLOOP    LSR.B   #1,D1
+            SUB.B   #(SCRWIDTH/UTLCHRWD)/2,D1
+            NEG.B   D1
+            ASL.W   #8,D1
+            OR.W    D0,D1
+            MOVE.B  #11,D0
+            TRAP    #15
+            MOVE.B  #13,D0
+            TRAP    #15
+            MOVEM.L (A7)+,D0-D1/A0-A1
+            ADDQ.B  #1,D0
+            RTS
 
 ; -----------------------------------------------------------------------------
 UTLRAND
@@ -65,6 +93,7 @@ UTLRAND
             DC.B    236, 127, 126, 3  , 207, 45 , 193, 2
             DC.B    148, 91 , 35 , 242, 139, 205, 248, 237
             DC.B    116, 51 , 236, 185, 15 , 213, 221, 6
+
 *~Font name~Fixedsys~
 *~Font size~24~
 *~Tab type~0~
