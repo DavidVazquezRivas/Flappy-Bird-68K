@@ -50,6 +50,7 @@ SNDINIT
 .SNDDIE     DC.B    'SND/DIE.wav',0
 .SNDJUMP    DC.B    'SND/JUMP.wav',0
 .SNDSCO     DC.B    'SND/SCO.wav',0
+            DS.W    0                       ; WORD ALIGN
 .SNDLIST    DC.L    .SNDDIE,.SNDJUMP,.SNDSCO,0
             
 ; ------------------------------------------------------------------------------
@@ -140,7 +141,7 @@ SCRTIM
 ; -----------------------------------------------------------------------------
             ADDQ.B  #1,(SCRINTCT)
             ADDQ.B  #1,(SCRCYCCT)
-            BRA     NEWPIPE    
+            RTE
             
 ; -----------------------------------------------------------------------------
 KBDINIT
@@ -181,6 +182,8 @@ KBDUPD
             RTE
 
     
+
+
 
 
 

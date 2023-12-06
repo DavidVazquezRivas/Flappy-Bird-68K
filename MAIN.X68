@@ -7,18 +7,29 @@
 
             ORG     $1000
             
+            ; CONSTANTS INCLUDES
             INCLUDE "SYSCONST.X68"
             INCLUDE "CONST.X68"
+            ; LIB INCLUDES
             INCLUDE "LIB/DMMCONST.X68"
+            INCLUDE "LIB/UTLCONST.X68"
             INCLUDE "LIB/DMMCODE.X68"
-            INCLUDE "SYSTEM.X68"
-            INCLUDE "SCORE.X68"
             INCLUDE "LIB/AGLCODE.X68"
             INCLUDE "LIB/UTLCODE.X68"
+            ; SYSTEM INCLUDES
+            INCLUDE "SYSTEM.X68"
+            ; STATES INCLUDES
+            INCLUDE "STATES.X68"
+            INCLUDE "INTRO.X68"
+            INCLUDE "INSTRUCTIONS.X68"
             INCLUDE "GAME.X68"
+            INCLUDE "PAUSE.X68"
+            INCLUDE "GOVER.X68"
+            ; FEATURE INCLUDES
             INCLUDE "BIRD.X68"
             INCLUDE "PIPE.X68"
             INCLUDE "BACKGROUND.X68"
+            INCLUDE "SCORE.X68"
             
 
 START
@@ -28,7 +39,7 @@ START
             ORI.W   #$0700,SR
             JSR     SYSINIT
             JSR     UTLINIT
-            JSR     GAMEINIT
+            JSR     STAINIT
             
 .LOOP
 
@@ -38,7 +49,7 @@ START
 
             TRAP    #KBDUPDTN
 
-            JSR     GAMEUPD
+            JSR     STAUPD
             
 ; --- SYNC --------------------------------------------------------------------
 
@@ -48,7 +59,8 @@ START
             
 ; --- PLOT --------------------------------------------------------------------
 
-            JSR     GAMEPLOT
+            JSR     BACKPLOT
+            JSR     STAPLOT
             
             TRAP    #SCRUPDTN
             
@@ -62,6 +74,8 @@ START
             INCLUDE "LIB/DMMVARS.X68"
 
     		END    START
+
+
 
 
 

@@ -14,6 +14,10 @@ BIRDFCOL    DC.W    LGYELLOW            ; BIRD FILL COLOR
 SCORE       DS.W    1                   ; ACTUAL GAME SCORE
 HIGHSCO     DS.W    1                   ; HIGH SCORE
 
+;  --- STATE RELATED VARIABLES ------------------------------------------------
+
+STACUR      DS.W    1                   ; CURRENT STATE
+STANEXT     DS.W    1                   ; NEXT STATE
 
 
 

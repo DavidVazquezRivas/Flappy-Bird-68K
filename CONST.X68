@@ -31,6 +31,17 @@ SCOFCOL     EQU     FLOCOLOR           ; TEXT BACKGROUND COLOR
 SCOLINE     EQU     $101D              ; SCORE TEXT COORDINATE 
 HSCOLINE    EQU     $101E              ; HIGHSCORE TEXT COORDINATE
 
+; --- STATE RELATED CONSTANTS -------------------------------------------------
+
+STANONE     EQU     -1                 ; NON-EXISTENT STATE NUMBER
+STAINTRO    EQU     0                  ; INTRO SCREEN STATE NUMBER
+STAINSTR    EQU     1                  ; INSTRUCTION STATE NUMBER
+STAGAME     EQU     2                  ; GAME SCREEN STATE NUMBER
+STAPAUSE    EQU     3                  ; PAUSE SCREEN STATE NUMBER
+STAGOVER    EQU     4                  ; GAME OVER SCREEN STATE NUMBER
+
+
+
 
 
 
