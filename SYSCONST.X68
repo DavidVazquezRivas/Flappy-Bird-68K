@@ -11,6 +11,7 @@ SCRHEIGH    EQU     480                 ; SCREEN HEIGHT
 ; --- KEYCODES ----------------------------------------------------------------
 
 KBDSPACE    EQU     ' '
+KBDP        EQU     'P'
 
 ; --- SOUND IDENTIFIERS -------------------------------------------------------
 
@@ -27,6 +28,7 @@ SNDPLTN     EQU     2                   ; SOUND PLAY TRAP NUMBER
 ; --- INTERRUPTION NUMBERS ----------------------------------------------------
 
 SCRINTN     EQU     1                   ; SCREEN INTERRUPT TRAP NUMBER    
+
 
 
 

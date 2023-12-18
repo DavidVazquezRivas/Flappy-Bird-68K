@@ -162,26 +162,37 @@ KBDUPD
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D1,-(A7)
+            MOVEM.L D0-D3,-(A7)
             
             ; READ KEYBOARD
             MOVE.B  #19,D0
-            MOVE.L  #KBDSPACE,D1
+            MOVE.L  #KBDP<<8|KBDSPACE,D1
             TRAP    #15
             
             ; CONVERT TO DESIRED FORMAT
-            AND.L   #$0001,D1
+            JSR     .PACK
 
             ; COMPUTE KBDEDGE
             MOVE.B  (KBDVAL),D0
             NOT.B   D0
-            AND.W   D1,D0
+            AND.W   D2,D0
             MOVE.B  D0,(KBDEDGE)
             
-            MOVEM.L (A7)+,D0-D1
+            ; STORE KBDVAL
+            MOVE.B  D2,(KBDVAL)
+            
+            MOVEM.L (A7)+,D0-D3
             RTE
 
+.PACK       MOVE.W  #3,D3
+.LOOP       LSL.L   #8,D1
+            ROXL.B  #1,D2
+            DBRA.W  D3,.LOOP
+            RTS
+
     
+
+
 
 
 

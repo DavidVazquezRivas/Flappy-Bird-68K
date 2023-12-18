@@ -9,6 +9,13 @@ PAUSINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+            MOVE.B  D0,-(A7)
+            MOVE.B  (KBDEDGE),D0
+            AND.B   #2,D0
+            BEQ     .CONT
+            MOVE.W  #STAGAME,(STANEXT)   
+   
+.CONT       MOVE.B  (A7)+,D0
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -18,6 +25,13 @@ PAUSUPD
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+            MOVE.B  D0,-(A7)
+            MOVE.B  (KBDEDGE),D0
+            BTST    #1,D0
+            BEQ     .CONT
+            MOVE.W  #STAGAME, (STANEXT)   
+            
+.CONT       MOVE.B  (A7)+,D0     
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -27,7 +41,9 @@ PAUSPLOT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
-            RTS
+            BRA     GAMEPLOT
+
+
 
 
 

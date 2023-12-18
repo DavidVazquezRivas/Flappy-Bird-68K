@@ -12,7 +12,7 @@ GAMEINIT
 
             JSR     BIRDINIT
             JSR     SCOINIT
-            CLR.B   (SCRCYCCT)
+            MOVE.B  (GAMCYCCT),(SCRCYCCT)
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -22,10 +22,19 @@ GAMEUPD
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
-
-            JSR     NEWPIPE
+            MOVE.B  D0,-(A7)
+            MOVE.B  (KBDEDGE),D0
+            BTST    #1,D0
+            BEQ     .NOPAUSE
+            MOVE.W  #STAPAUSE, (STANEXT)
+            MOVE.B  (SCRCYCCT),(GAMCYCCT)
+            
+.NOPAUSE    JSR     NEWPIPE
             JSR     AGLUPD
-            BRA     BIRDUPD
+            JSR     BIRDUPD
+            
+            MOVE.B  (A7)+,D0
+            RTS
 
 ; -----------------------------------------------------------------------------
 NEWPIPE
@@ -61,6 +70,9 @@ GAMEPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
+
+
 
 
 
