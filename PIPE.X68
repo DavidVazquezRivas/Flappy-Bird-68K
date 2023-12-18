@@ -72,21 +72,21 @@ PIPECOLI
             BMI     .COL
 
             BRA     .NOCOL
-.COL        MOVE.L  #DARKRED<<16|LIGHTRED,(BIRDPCOL) ; TURN BIRD TO RED TEMPORAL
 
             ; STOP ALL SOUNDS
-            MOVE.B  #76,D0
+.COL        MOVE.B  #76,D0
             MOVE.L  #3,D2
             TRAP    #15
             
             MOVE.B  #SNDDIE,D7  ; PLAY DIE SOUND
             TRAP    #SNDPLTN
+            
+            MOVE.W  #STAGOVER,(STANEXT)
+            
             BRA     .END
 
-.NOCOL      MOVE.L  #DKYELLOW<<16|LGYELLOW,(BIRDPCOL) ; TURN BIRD TO YELLOW TEMPORAL
-            
             ; SCORE INCREASE
-            CMP.W   #BIRDPOSX-PIPEWIDT-BIRDRAD,(A0)
+.NOCOL      CMP.W   #BIRDPOSX-PIPEWIDT-BIRDRAD,(A0)
             BNE     .END
             JSR     SCOINC
             
@@ -130,6 +130,7 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 
 

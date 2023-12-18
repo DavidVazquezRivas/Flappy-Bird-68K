@@ -6,7 +6,6 @@
 
 JUMPVELY    EQU     -10
 BIRDPOSX    EQU     SCRWIDTH/4
-        ; THE FOLLOWING CONSTANTS WILL BE REMOVED WHEN USE AN IMAGE AS A BIRD
 BIRDRAD     EQU     15                  ; BIRD RADIUS
 
 ; --- PIPE RELATED CONSTANTS --------------------------------------------------
@@ -39,6 +38,14 @@ STAINSTR    EQU     1                  ; INSTRUCTION STATE NUMBER
 STAGAME     EQU     2                  ; GAME SCREEN STATE NUMBER
 STAPAUSE    EQU     3                  ; PAUSE SCREEN STATE NUMBER
 STAGOVER    EQU     4                  ; GAME OVER SCREEN STATE NUMBER
+
+; --- COLORS CONSTANTS 00BBGGRR -----------------------------------------------
+
+DKYELLOW    EQU     $0000BBBB           ; DARK YELLOW COLOR
+LGYELLOW    EQU     $0000FFFF           ; LIGHT YELLOW COLOR
+DARKRED     EQU     $000000BB           ; DARK RED COLOR
+LIGHTRED    EQU     $000000FF           ; LIGHT RED COLOR
+
 
 
 

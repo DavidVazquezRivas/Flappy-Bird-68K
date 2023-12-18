@@ -9,8 +9,27 @@ SCOINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+
+            MOVEM.L D0-D2/A0-A1,-(A7)
             CLR.W   (SCORE)
             CLR.W   (HIGHSCO)
+            
+            ; OPEN FILE
+            LEA     SCOPATH,A1
+            MOVE.B  #51,D0
+            TRAP    #15
+            
+            ; READ HIGH SCORE
+            LEA     HIGHSCO,A1
+            MOVE.L  #2,D2
+            MOVE.B  #53,D0
+            TRAP    #15
+            
+            ; CLOSE FILE
+            MOVE.B  #56,D0
+            TRAP    #15
+            
+            MOVEM.L (A7)+,D0-D2/A0-A1
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -80,6 +99,40 @@ SCOPLOT
 .SCOTXT     DC.B    'SCORE: ',0
 .HISCOTXT   DC.B    'HIGHSCORE: ',0
 
+; ------------------------------------------------------------------------------
+SCOSAVE
+; SAVES THE HIGH SCORE
+; INPUT    : NONE 
+; OUTPUT   : NONE
+; MODIFIES : NONE
+; ------------------------------------------------------------------------------
+
+            MOVEM.L A0-A1/D0-D2,-(A7)
+            ; IF ACTUAL SCORE > HIGH SCORE
+            MOVE.W  (SCORE),D0
+            MOVE.W  (HIGHSCO),D1
+            CMP.W   D0,D1
+            BGE     .END
+            
+            ; OPEN FILE
+            LEA     SCOPATH,A1
+            MOVE.B  #51,D0
+            TRAP    #15
+            
+            ; SAVE NEW HIGH SCORE
+            MOVE.W  (SCORE),(HIGHSCO)
+            LEA     HIGHSCO,A1
+            MOVE.L  #2,D2
+            MOVE.B  #54,D0
+            TRAP    #15
+            
+            ; CLOSE FILE
+            MOVE.B  #56,D0
+            TRAP    #15
+            
+            
+.END        MOVEM.L (A7)+,A0-A1/D0-D2
+            RTS
 
 
 

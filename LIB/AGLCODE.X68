@@ -70,6 +70,25 @@ AGLPLOT
             RTS
 
 ; -----------------------------------------------------------------------------
+AGLCLEAN
+; KILLS EVERY AGENT ON AGENLIST
+; INPUT     - NONE
+; OUTPUT    - KILLS EVERY AGENT ON AGENTLIST
+; MODIFIES  - NONE
+; -----------------------------------------------------------------------------
+            MOVEM.L A0-A1,-(A7)
+.LOOP       JSR     DMMFIRST
+            CMP.L   #0,A0
+            BEQ     .END
+            JSR     AGLKILL
+            BRA     .LOOP
+.END        MOVEM.L (A7)+,A0-A1
+            RTS
+
+            
+
+
+; -----------------------------------------------------------------------------
 AGLKILL     EQU     DMMFREE
 ; KILLS THE AGENT BY RELEASING ITS MEMORY
 ; INPUT    - A0 POINTER WITHIN THE AGENT MEMORY
@@ -77,6 +96,8 @@ AGLKILL     EQU     DMMFREE
 ; MODIFIES - NONE
 ; NOTE     - IT IS JUST A WRAPPER FOR DMMFREE
 ; -----------------------------------------------------------------------------
+
+
 *~Font name~Fixedsys~
 *~Font size~24~
 *~Tab type~0~

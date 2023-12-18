@@ -12,7 +12,11 @@ KBDEDGE     DS.B    1                       ; KEY EDGE
 SCRINTCT    DS.B    1                       ; INTERRUPT COUNTER
 SCRCYCCT    DS.B    1                       ; SCREEN CYCLE COUNTER
             DS.W    0
+            
+; --- FILE PATHS --------------------------------------------------------------
 
+SCOPATH     DC.B     'DATA/SCORES.dat',0
+            DS.W     0
 
 
 

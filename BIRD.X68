@@ -34,11 +34,7 @@ BIRDUPD
             MOVE.W  #JUMPVELY,(BIRDVELY)
             BRA     .CORDUPD
             
-.NOJUMP     ;MOVE.B  (SCRCYCCT),D0       ; CHECK IF SHOULD ACCELERATE DOWN
-            ;AND.B   #$01,D0
-            ;BNE     .CORDUPD            
-
-            ADDQ.W  #1,BIRDVELY          ; ACCELERATE
+.NOJUMP     ADDQ.W  #1,BIRDVELY          ; ACCELERATE
             
             ; UPDATE BIRD COORDINATES
 .CORDUPD    MOVE.W  (BIRDPOSY),D0
@@ -46,19 +42,10 @@ BIRDUPD
             
             ; CHECK SCREEN COLLISIONS
             CMP.W   #SCRHEIGH-FLOHEIGH-BIRDRAD,D0
-            BGT     .COLBOT
-            CMP.W   #BIRDRAD,D0
-            BLT     .COLTOP
-            BRA     .NOCOL
-            
-; TODO MANAGE COLLISIONS
+            BLT     .NOCOL
         
             ; COLLISION BOT
-.COLBOT     MOVE.W  #SCRHEIGH-FLOHEIGH-BIRDRAD,(BIRDPOSY)
-            BRA     .DONE
-
-            ; COLLISION TOP
-.COLTOP     ;BRA     .DONE
+.COLBOT     MOVE.W  #STAGOVER,(STANEXT)
             
             ; STORE POSITION
 .NOCOL      MOVE.W  D0,(BIRDPOSY)
@@ -103,6 +90,7 @@ BIRDPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
 
 
 

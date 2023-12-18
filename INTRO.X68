@@ -9,6 +9,7 @@ ISCINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+            JSR AGLCLEAN
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ ISCUPD
 
             MOVE.B  (KBDEDGE),D0
             BEQ     .CONT
-            MOVE.W  #STAGAME,STANEXT      
+            MOVE.W  #STAGAME,(STANEXT)      
 .CONT
             RTS
 
@@ -33,6 +34,8 @@ ISCPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             RTS
+
+
 
 
 
