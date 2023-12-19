@@ -12,9 +12,6 @@ public class CloudsConverter {
     // Número de nubes
     private static final int n = 8;
 
-    // Umbral de distancia para considerar colores similares
-    private static final double threshold = 200.0;
-
     // Tamaño de cada bloque de pixeles
     private static final int blockSize = 4;
 
