@@ -12,15 +12,14 @@ public class CloudsConverter {
     // Número de nubes
     private static final int n = 8;
 
-    // Umbral de distancia para considerar colores similares
-    private static final double threshold = 200.0;
-
     // Tamaño de cada bloque de pixeles
     private static final int blockSize = 4;
 
     // Paleta de colores
     private static final Color WHITE = new Color(251, 253, 254);
     private static final Color BLUE = new Color(128, 191, 255);
+    private static final Color GRAY = new Color (220, 220, 220);
+    private static final Color[] COLORS = {WHITE, GRAY, BLUE};
 
     // Método para calcular la distancia entre dos colores en el espacio RGB
     private static double colorDistance(Color color1, Color color2) {
@@ -28,10 +27,17 @@ public class CloudsConverter {
     }
 
     // Método para comparar con los colores predefinidos y elegir el más cercano
-    private static Color chooseColor(Color currentColor, Color color1, Color color2) {
-        double distance1 = colorDistance(currentColor, color1);
-        double distance2 = colorDistance(currentColor, color2);
-        return distance1 < distance2 ? color1 : color2;
+    private static Color chooseColor(Color color, Color[] colors) {
+        int index = -1;
+        double minDistance = Double.MAX_VALUE;
+        for (int i = 0; i < colors.length; i++) {
+            double distance = colorDistance(color, colors[i]);
+            if (distance < minDistance) {
+                minDistance = distance;
+                index = i;
+            }
+        }
+        return colors[index];
     }
 
     // Método para formatear un color para el lenguaje ensamblador 68000 (00BBGGRR)
@@ -108,7 +114,7 @@ public class CloudsConverter {
                         Color c = getDominantColor(image, x, y);
 
                         // Comparar el color actual con el anterior utilizando la distancia euclidiana
-                        Color choosenColor = chooseColor(c, WHITE, BLUE);
+                        Color choosenColor = chooseColor(c, COLORS);
                         
                         if (!choosenColor.equals(currentColor) || blockCount == 65535) {
                             if (firstZero) {

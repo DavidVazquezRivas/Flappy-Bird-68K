@@ -43,7 +43,7 @@ DIRTHEIG    EQU     45                 ; DIRT PART HEIGHT
 
 CLDSPMSK    EQU     $FFFFFFFC
 MASKNWCL    EQU     %01111111
-CLOUDAGT    EQU     2
+CLOUDAGT    EQU     4
 
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
 
@@ -63,6 +63,9 @@ STAGOVER    EQU     4                  ; GAME OVER SCREEN STATE NUMBER
 ; --- IMAGE DRAWING CONSTANTS -------------------------------------------------
 
 BLOCKSZ     EQU     4
+
+
+
 
 
 
