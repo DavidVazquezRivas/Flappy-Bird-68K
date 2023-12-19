@@ -9,9 +9,6 @@ GAMEINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------        
-
-            JSR     BIRDINIT
-            JSR     SCOINIT
             MOVE.B  (GAMCYCCT),(SCRCYCCT)
             RTS
             
@@ -22,6 +19,8 @@ GAMEUPD
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+
+            JSR     BACKUPD
             MOVE.B  D0,-(A7)
             MOVE.B  (KBDEDGE),D0
             BTST    #1,D0
@@ -70,6 +69,8 @@ GAMEPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
+
 
 
 

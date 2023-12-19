@@ -2,6 +2,16 @@
 ; GAME CONSTANTS
 ; =============================================================================
 
+; --- COLORS CONSTANTS 00BBGGRR -----------------------------------------------
+
+DKYELLOW    EQU     $0000BBBB           ; DARK YELLOW COLOR
+LGYELLOW    EQU     $0000FFFF           ; LIGHT YELLOW COLOR
+DARKRED     EQU     $000000BB           ; DARK RED COLOR
+LIGHTRED    EQU     $000000FF           ; LIGHT RED COLOR
+SKYBLUE     EQU     $00FFBF80           ; SKY BLUE COLOR
+LGGREEN     EQU     $0035DE3B           ; LIGHT GREEN COLOR
+WHITE       EQU     $00FEFDFB           ; WHITE COLOR
+
 ; --- BIRD RELATED CONSTANTS --------------------------------------------------
 
 JUMPVELY    EQU     -10
@@ -17,12 +27,20 @@ PIPEWIDT    EQU     50                  ; PIPE WIDTH
 PIPEGAPS    EQU     120                 ; PIPE GAP SIZE
 PIPEAGTP    EQU     1                   ; PIPE AGENT TYPE CODE
 MASKNWPP    EQU     %00111111           ; NEW PIPE MASK 
+PPOPOVER    EQU     5                   ; PIPE OPENING OVERFLOW
+PPOPHEIG    EQU     15                  ; PIPE OPENING HEIGHT
 
 ; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
 
-SKYCOLOR    EQU     $00FFBF80           ; SKY BACKGROUND COLOR
-FLOCOLOR    EQU     $0035DE3B           ; FLOOR BACKGROUND COLOR
+SKYCOLOR    EQU     SKYBLUE            ; SKY BACKGROUND COLOR
+FLOCOLOR    EQU     LGGREEN            ; FLOOR BACKGROUND COLOR
 FLOHEIGH    EQU     60                  ; FLOOR HEIGHT
+
+; --- CLOUD (BACKGROUND) RELATED CONSTANTS ------------------------------------
+
+CLDSPMSK    EQU     $FFFFFFFC
+MASKNWCL    EQU     %01111111
+CLOUDAGT    EQU     2
 
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
 
@@ -39,12 +57,11 @@ STAGAME     EQU     2                  ; GAME SCREEN STATE NUMBER
 STAPAUSE    EQU     3                  ; PAUSE SCREEN STATE NUMBER
 STAGOVER    EQU     4                  ; GAME OVER SCREEN STATE NUMBER
 
-; --- COLORS CONSTANTS 00BBGGRR -----------------------------------------------
+; --- IMAGE DRAWING CONSTANTS -------------------------------------------------
 
-DKYELLOW    EQU     $0000BBBB           ; DARK YELLOW COLOR
-LGYELLOW    EQU     $0000FFFF           ; LIGHT YELLOW COLOR
-DARKRED     EQU     $000000BB           ; DARK RED COLOR
-LIGHTRED    EQU     $000000FF           ; LIGHT RED COLOR
+BLOCKSZ     EQU     4
+
+
 
 
 

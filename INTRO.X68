@@ -9,6 +9,11 @@ ISCINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+            ; INIT GAME VARIABLES
+            JSR BIRDINIT
+            JSR SCOINIT
+            ; CLEAN PIPES
+            MOVE.W  #PIPEAGTP,D0
             JSR AGLCLEAN
             RTS
 
@@ -19,7 +24,9 @@ ISCUPD
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
-
+            
+            JSR BACKUPD
+            JSR AGLUPD
             MOVE.B  (KBDEDGE),D0
             AND.B   #1,D0
             BEQ     .CONT
@@ -34,7 +41,10 @@ ISCPLOT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+            JSR AGLPLOT
             RTS
+
+
 
 
 

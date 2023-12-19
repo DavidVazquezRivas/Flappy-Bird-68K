@@ -71,17 +71,19 @@ AGLPLOT
 
 ; -----------------------------------------------------------------------------
 AGLCLEAN
-; KILLS EVERY AGENT ON AGENLIST
-; INPUT     - NONE
+; KILLS EVERY AGENT ON AGENLIST OF THE SPECIFIED TYPE
+; INPUT     - D0.W - AGENT TYPE (USED AS OWNER BY DMM)
 ; OUTPUT    - KILLS EVERY AGENT ON AGENTLIST
 ; MODIFIES  - NONE
 ; -----------------------------------------------------------------------------
             MOVEM.L A0-A1,-(A7)
-.LOOP       JSR     DMMFIRST
+            
+.LOOP       JSR     DMMFRSTO
             CMP.L   #0,A0
             BEQ     .END
             JSR     AGLKILL
             BRA     .LOOP
+            
 .END        MOVEM.L (A7)+,A0-A1
             RTS
 
@@ -96,6 +98,7 @@ AGLKILL     EQU     DMMFREE
 ; MODIFIES - NONE
 ; NOTE     - IT IS JUST A WRAPPER FOR DMMFREE
 ; -----------------------------------------------------------------------------
+
 
 
 *~Font name~Fixedsys~

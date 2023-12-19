@@ -15,7 +15,7 @@ PIPEINIT
             MOVE.L  D0,-(A7)
             
             MOVE.W  #SCRWIDTH,(A0)
-            JSR UTLRAND
+            JSR UTLRAND         ; RANDOM NUMBER BETWEEN 0-255
             ADD.L   #(SCRHEIGH-PIPEGAPS-FLOHEIGH)/2,D0
             MOVE.B  D0,2(A0)
             
@@ -29,22 +29,17 @@ PIPEUPD
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+            MOVEM.L D0-D1,-(A7)
+            
+            MOVE.W  (STACUR),D0
+            CMP.W   #STAGAME,D0
+            BNE     .END
+
             ; UPDATE POSITION
             ADD.W   #PIPEVELX,(A0)
 
-            ; CHECK AND HANDLE COLLISIONS
-            BRA PIPECOLI
+; CHECK AND HANDLE COLLISIONS
             
-; -----------------------------------------------------------------------------
-PIPECOLI
-; CHECKS AND HANDLE PIPE COLLISIONS
-; INPUT     : A0 POINTER TO INSTANCE VARIABLE
-; OUTPUT    : NONE
-; MODIFIES  : NONE
-; -----------------------------------------------------------------------------
-            MOVE.L  D0,-(A7)
-            MOVE.L  D1,-(A7)
-         
             ; COLLISION WITH SCREEN
             MOVE.W  (A0),D0
             ADD.W   #PIPEWIDT,D0
@@ -90,8 +85,7 @@ PIPECOLI
             BNE     .END
             JSR     SCOINC
             
-.END        MOVE.L  (A7)+,D1
-            MOVE.L  (A7)+,D0
+.END        MOVEM.L  (A7)+,D0-D1
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -121,15 +115,31 @@ PIPEPLOT
             MOVE.B  2(A0),D4
             MOVE.B  #87,D0
             TRAP    #15
+            ; PLOT TOP PIPE OPENING
+            MOVE.W  D4,D2
+            SUB.W   #PPOPHEIG,D2
+            SUB.W   #PPOPOVER,D1
+            ADD.W   #PPOPOVER,D3
+            TRAP    #15
+            
             
             ; PLOT BOTTOM HALF
+            ADD.W   #PPOPOVER,D1
+            SUB.W   #PPOPOVER,D3
             MOVE.W  D4,D2
             ADD.W   #PIPEGAPS,D2
             MOVE.W  #SCRHEIGH-FLOHEIGH,D4
             TRAP    #15
+            ;PLOT BOTTOM PIPE OPNENING
+            SUB.W   #PPOPOVER,D1
+            ADD.W   #PPOPOVER,D3
+            MOVE.W  D2,D4
+            ADD.W   #PPOPHEIG,D4
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
+
 
 
 

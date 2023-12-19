@@ -25,7 +25,10 @@ PAUSUPD
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+        
             MOVE.B  D0,-(A7)
+            
+            ; CHECK IF KEY PRESSED TO RESUME GAME
             MOVE.B  (KBDEDGE),D0
             BTST    #1,D0
             BEQ     .CONT
@@ -42,6 +45,8 @@ PAUSPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             BRA     GAMEPLOT
+
+
 
 
 

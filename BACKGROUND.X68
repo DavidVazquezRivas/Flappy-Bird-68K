@@ -3,6 +3,29 @@
 ; =============================================================================
 
 ; -----------------------------------------------------------------------------
+BACKUPD
+; UPDATES BACKGROUND
+; INPUT     : NONE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; -----------------------------------------------------------------------------
+            
+            MOVEM.L D0/A1-A3,-(A7)
+            
+            ; CREATE NEW CLOUD
+            MOVE.B  (SCRCYCCT),D0
+            ANDI.B  #MASKNWCL,D0
+            BNE     .NONEWCL
+            LEA     CLDINIT,A1
+            LEA     CLDUPD,A2
+            LEA     CLDPLOT,A3
+            MOVE    #CLOUDAGT,D0
+            JSR     AGLADD
+            
+.NONEWCL    MOVEM.L (A7)+,D0/A1-A3
+            RTS
+
+; -----------------------------------------------------------------------------
 BACKPLOT
 ; DRAWS BACKGROUND
 ; INPUT     : NONE
@@ -12,8 +35,6 @@ BACKPLOT
 
             JSR SKYPLOT
             BRA FLOPLOT
-            ; TODO CLOUD PLOT
-            ; RTS 
             
 ; -----------------------------------------------------------------------------
 SKYPLOT
@@ -72,6 +93,7 @@ FLOPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 *~Font name~Fixedsys~
 *~Font size~18~

@@ -18,10 +18,17 @@ GOVUPD
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+
+            MOVE.W  D0,-(A7)
+
+            JSR     BACKUPD
+            JSR     AGLUPD
+            ; CHECK IF KEY PRESSED
             MOVE.B  (KBDEDGE),D0
             BEQ     .CONT
-            MOVE.W  #STAINTRO,(STANEXT)      
-.CONT
+            MOVE.W  #STAINTRO,(STANEXT)   
+   
+.CONT       MOVE.W  (A7)+,D0
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -33,6 +40,8 @@ GOVPLOT
 ; ------------------------------------------------------------------------------
             JSR GAMEPLOT
             RTS
+
+
 
 
 

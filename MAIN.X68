@@ -7,29 +7,32 @@
 
             ORG     $1000
             
-            ; CONSTANTS INCLUDES
-            INCLUDE "SYSCONST.X68"
-            INCLUDE "CONST.X68"
-            ; LIB INCLUDES
-            INCLUDE "LIB/DMMCONST.X68"
-            INCLUDE "LIB/UTLCONST.X68"
-            INCLUDE "LIB/DMMCODE.X68"
-            INCLUDE "LIB/AGLCODE.X68"
-            INCLUDE "LIB/UTLCODE.X68"
-            ; SYSTEM INCLUDES
-            INCLUDE "SYSTEM.X68"
-            ; STATES INCLUDES
-            INCLUDE "STATES.X68"
-            INCLUDE "INTRO.X68"
-            INCLUDE "INSTRUCTIONS.X68"
-            INCLUDE "GAME.X68"
-            INCLUDE "PAUSE.X68"
-            INCLUDE "GOVER.X68"
-            ; FEATURE INCLUDES
-            INCLUDE "BIRD.X68"
-            INCLUDE "PIPE.X68"
-            INCLUDE "BACKGROUND.X68"
-            INCLUDE "SCORE.X68"
+; --- CODE INCLUDES -----------------------------------------------------------
+
+            INCLUDE "SYSCONST.X68"      ; SYSTEM CONSTANTS
+            INCLUDE "CONST.X68"         ; GAME CONSTANTS
+            INCLUDE "LIB/DMMCONST.X68"  ; DYNAMIC MEMORY CONSTANTS
+            INCLUDE "LIB/UTLCONST.X68"  ; UTIL CONSTANTS 
+            INCLUDE "LIB/DMMCODE.X68"   ; DYNAMIC MEMORY CODE
+            INCLUDE "LIB/AGLCODE.X68"   ; AGENTS CODE "OBJECTS"
+            INCLUDE "LIB/UTLCODE.X68"   ; UTIL SUBRUTINES
+            INCLUDE "SYSTEM.X68"        ; SYSTEM CODE
+            INCLUDE "STATES.X68"        ; STATES MANAGEMENT
+            INCLUDE "INTRO.X68"         ; INTRO STATE MANAGEMENT
+            INCLUDE "INSTRUCTIONS.X68"  ; INSTRUCTIONS STATE MANAGEMENT
+            INCLUDE "GAME.X68"          ; GAME STATE MANAGEMENT
+            INCLUDE "PAUSE.X68"         ; PAUSE STATE MANAGEMENT
+            INCLUDE "GOVER.X68"         ; GAME OVER STATE MANAGEMENT
+            INCLUDE "BIRD.X68"          ; PLAYER (BIRD) MANAGEMENT
+            INCLUDE "PIPE.X68"          ; OBSTACLE (PIPE) MANAGEMENT
+            INCLUDE "BACKGROUND.X68"    ; BACKGROUND MANAGEMENT
+            INCLUDE "SCORE.X68"         ; SCORE MANAGEMENT
+            INCLUDE "CLOUD.X68"         ; CLOUD MANAGEMENT
+            INCLUDE "IMAGE.X68"         ; IMAGE DRAWING ROUTINES
+            
+; --- DATA INCLUDES -----------------------------------------------------------
+
+            INCLUDE "DATA/CLOUDSDATA.X68"    ; CLOUD IMAGES DATA
             
 
 START
@@ -67,23 +70,15 @@ START
             BRA     .LOOP
             
             SIMHALT
+            
+; --- VARIABLES ---------------------------------------------------------------
     		
-            INCLUDE "VARS.X68"
-            INCLUDE "LIB/UTLVARS.X68"
-            INCLUDE "SYSVARS.X68"
-            INCLUDE "LIB/DMMVARS.X68"
+    		INCLUDE "SYSVARS.X68"       ; SYSTEM VARIABLES
+            INCLUDE "VARS.X68"          ; GAME VARIABLES
+            INCLUDE "LIB/UTLVARS.X68"   ; UTIL CODE VARIABLES
+            INCLUDE "LIB/DMMVARS.X68"   ; DYNAMIC MEMORY VARIABLES
 
     		END    START
-
-
-
-
-
-
-
-
-
-
 
 
 *~Font name~Fixedsys~
