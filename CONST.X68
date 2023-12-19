@@ -6,10 +6,11 @@
 
 DKYELLOW    EQU     $0000BBBB           ; DARK YELLOW COLOR
 LGYELLOW    EQU     $0000FFFF           ; LIGHT YELLOW COLOR
-DARKRED     EQU     $000000BB           ; DARK RED COLOR
-LIGHTRED    EQU     $000000FF           ; LIGHT RED COLOR
+DARKGRAY    EQU     $000C0C0C           ; DARK GRAY COLOR
+NORMGRAY    EQU     $00616161           ; NORMAL (NOT DARK OR LIGHT) GRAY COLOR 
 SKYBLUE     EQU     $00FFBF80           ; SKY BLUE COLOR
 LGGREEN     EQU     $0035DE3B           ; LIGHT GREEN COLOR
+LGBROWN     EQU     $00306284           ; LIGHT BROWN COLOR
 WHITE       EQU     $00FEFDFB           ; WHITE COLOR
 
 ; --- BIRD RELATED CONSTANTS --------------------------------------------------
@@ -20,8 +21,8 @@ BIRDRAD     EQU     15                  ; BIRD RADIUS
 
 ; --- PIPE RELATED CONSTANTS --------------------------------------------------
 
-PIPEPCOL    EQU     $00151A30           ; PIPE PEN COLOR
-PIPEFCOL    EQU     $0020284D           ; PIPE FILL COLOR
+PIPEPCOL    EQU     DARKGRAY           ; PIPE PEN COLOR
+PIPEFCOL    EQU     NORMGRAY           ; PIPE FILL COLOR
 PIPEVELX    EQU     -5                  ; PIPE X SPEED
 PIPEWIDT    EQU     50                  ; PIPE WIDTH
 PIPEGAPS    EQU     120                 ; PIPE GAP SIZE
@@ -33,8 +34,10 @@ PPOPHEIG    EQU     15                  ; PIPE OPENING HEIGHT
 ; --- BACKGROUND RELATED CONSTANTS --------------------------------------------
 
 SKYCOLOR    EQU     SKYBLUE            ; SKY BACKGROUND COLOR
-FLOCOLOR    EQU     LGGREEN            ; FLOOR BACKGROUND COLOR
-FLOHEIGH    EQU     60                  ; FLOOR HEIGHT
+GRASSCLR    EQU     LGGREEN            ; GRASS COLOR
+DIRTCLR     EQU     LGBROWN            ; DIRT COLOR
+FLOHEIGH    EQU     60                 ; FLOOR HEIGHT
+DIRTHEIG    EQU     45                 ; DIRT PART HEIGHT
 
 ; --- CLOUD (BACKGROUND) RELATED CONSTANTS ------------------------------------
 
@@ -44,7 +47,7 @@ CLOUDAGT    EQU     2
 
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
 
-SCOFCOL     EQU     FLOCOLOR           ; TEXT BACKGROUND COLOR
+SCOFCOL     EQU     DIRTCLR            ; TEXT BACKGROUND COLOR
 SCOLINE     EQU     $101D              ; SCORE TEXT COORDINATE 
 HSCOLINE    EQU     $101E              ; HIGHSCORE TEXT COORDINATE
 

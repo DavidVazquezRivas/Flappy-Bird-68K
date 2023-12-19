@@ -135,6 +135,7 @@ PIPEPLOT
             ADD.W   #PPOPOVER,D3
             MOVE.W  D2,D4
             ADD.W   #PPOPHEIG,D4
+            TRAP    #15
             
             MOVEM.L (A7)+,D0-D4
             RTS
