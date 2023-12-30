@@ -12,8 +12,10 @@ ISCINIT
             ; INIT GAME VARIABLES
             JSR BIRDINIT
             JSR SCOINIT
-            ; CLEAN PIPES
+            ; CLEAN PIPES AND BUTTONS
             MOVE.W  #PIPEAGTP,D0
+            JSR AGLCLEAN
+            MOVE.W  #BUTAGTP,D0
             JSR AGLCLEAN
             RTS
 
@@ -43,6 +45,7 @@ ISCPLOT
 ; ------------------------------------------------------------------------------
             JSR AGLPLOT
             RTS
+
 
 
 

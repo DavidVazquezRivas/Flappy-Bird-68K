@@ -59,20 +59,35 @@ AGLUPD
 ; -----------------------------------------------------------------------------
 AGLPLOT
 ; PLOTS THE AGENT LIST. PRIOR TO CALLING THE UPDATE FUNCTIONS, A0 IS SET
-; TO THE DATA BLOCK OF THE CORRESPONDING SLOT.
+; TO THE DATA BLOCK OF THE CORRESPONDING SLOT. PLOTS AGENTS IN AGENT TYPE ORDER
 ; INPUT    - NONE
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
+; NOTE : 8 IS THE MAX AGENT TYPES
 ; -----------------------------------------------------------------------------
             MOVEM.L A0-A1,-(A7)
-            JSR     DMMFIRST
-.LOOP       CMP.L   #0,A0
-            BEQ     .END
+            
+            CLR.B   D0                      ; CURRENT AGENT TYPE UPDATING
+.LOOP1      ADDQ.B  #1,D0    
+            JSR     DMMFRSTO
+.LOOP2      CMP.L   #0,A0
+            BEQ     .NEXTTP
             MOVE.L  4(A0),A1
             ADD.L   #8,A0
             JSR     (A1)
-            JSR     DMMNEXT
-            BRA     .LOOP
+            JSR     DMMNEXTO
+            BRA     .LOOP2
+.NEXTTP     CMP.B   #8,D0
+            BLT     .LOOP1
+            
+;            JSR     DMMFIRST
+;.LOOP       CMP.L   #0,A0
+;            BEQ     .END
+;            MOVE.L  4(A0),A1
+;            ADD.L   #8,A0
+;            JSR     (A1)
+;            JSR     DMMNEXT
+;            BRA     .LOOP
 .END        MOVEM.L (A7)+,A0-A1
             RTS
 
@@ -105,6 +120,7 @@ AGLKILL     EQU     DMMFREE
 ; MODIFIES - NONE
 ; NOTE     - IT IS JUST A WRAPPER FOR DMMFREE
 ; -----------------------------------------------------------------------------
+
 
 
 

@@ -10,6 +10,9 @@ GAMEINIT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------        
             MOVE.B  (GAMCYCCT),(SCRCYCCT)
+            ; CLEAN BUTTONS
+            MOVE.W  #BUTAGTP,D0
+            JSR AGLCLEAN
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -69,6 +72,7 @@ GAMEPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
 
 
 
