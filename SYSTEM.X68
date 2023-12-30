@@ -9,13 +9,17 @@ SYSINIT
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+
             ; INSTALL TRAPS AND INTERRUPTIONS
             MOVE.L  #SCRPLOT,($80+SCRUPDTN*4)
             MOVE.L  #KBDUPD,($80+KBDUPDTN*4)
+            MOVE.L  #MOUUPD,($80+MOUUPDTN*4)
             MOVE.L  #SNDPLAY,($80+SNDPLTN*4)
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
             
+            JSR     TXTINIT
             JSR     KBDINIT
+            JSR     MOUINIT
             JSR     SNDINIT
             JSR     SCRINIT
             JSR     DMMINIT
@@ -26,12 +30,31 @@ SYSINIT
             RTE
             
 ; -----------------------------------------------------------------------------
+TXTINIT
+; INITIALIZES THE TEXT OUTPUT
+; INPUT     : NONE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; -----------------------------------------------------------------------------
+
+            MOVEM.L D0-D2,-(A7)
+            
+            MOVE.L  #TXTCOLOR,D1
+            MOVE.L  #TXTFONT<<24|TXTSIZE<<16|TXTSTYLE,D2
+            MOVE.B  #21,D0
+            TRAP    #15
+            
+            MOVEM.L (A7)+,D0-D2
+            RTS     
+       
+; -----------------------------------------------------------------------------
 SNDINIT
 ; INITIALIZES SOUND SYSTEM
 ; INPUT     : NONE
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+
             MOVEM.L D0-D1/A0-A1,-(A7)
             
             CLR.B   D1
@@ -60,6 +83,7 @@ SNDPLAY
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+
             MOVEM.W D0-D1,-(A7)
             
             MOVE.B  #72,D0
@@ -119,6 +143,7 @@ SCRPLOT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; -----------------------------------------------------------------------------
+
             MOVEM.W D0-D1,-(A7)
             
             ; SWITCH BUFFERS
@@ -139,6 +164,7 @@ SCRTIM
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+
             ADDQ.B  #1,(SCRINTCT)
             ADDQ.B  #1,(SCRCYCCT)
             RTE
@@ -150,6 +176,7 @@ KBDINIT
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+
             CLR.B   (KBDVAL)
             CLR.B   (KBDEDGE)
             RTS
@@ -162,11 +189,12 @@ KBDUPD
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
+
             MOVEM.L D0-D3,-(A7)
             
             ; READ KEYBOARD
             MOVE.B  #19,D0
-            MOVE.L  #KBDP<<8|KBDSPACE,D1
+            MOVE.L  #KBDPAUSE<<8|KBDSPACE,D1
             TRAP    #15
             
             ; CONVERT TO DESIRED FORMAT
@@ -190,7 +218,37 @@ KBDUPD
             DBRA.W  D3,.LOOP
             RTS
 
-    
+; -----------------------------------------------------------------------------
+MOUINIT
+; INPUT     : NONE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; -----------------------------------------------------------------------------
+
+            CLR.L   MOUPOS
+            CLR.B   MOUVAL
+            RTS
+            
+; -----------------------------------------------------------------------------
+MOUUPD
+; INPUT     : NONE
+; OUTPUT    : NONE
+; MODIFIES  : NONE
+; -----------------------------------------------------------------------------
+
+            MOVEM.L D0-D1,-(A7)
+            
+            MOVE.B  #61,D0
+            CLR.B   D1
+            TRAP    #15
+            MOVE.B  D0,(MOUVAL)
+            MOVE.L  D1,(MOUPOS)
+            
+            MOVEM.L (A7)+,D0-D1
+            RTE
+
+
+
 
 
 

@@ -48,8 +48,8 @@ CLOUDAGT    EQU     4
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
 
 SCOFCOL     EQU     DIRTCLR            ; TEXT BACKGROUND COLOR
-SCOLINE     EQU     $101D              ; SCORE TEXT COORDINATE 
-HSCOLINE    EQU     $101E              ; HIGHSCORE TEXT COORDINATE
+SCOLINE     EQU     $1017             ; SCORE TEXT COORDINATE 
+HSCOLINE    EQU     $1018              ; HIGHSCORE TEXT COORDINATE
 
 ; --- STATE RELATED CONSTANTS -------------------------------------------------
 
@@ -63,6 +63,7 @@ STAGOVER    EQU     4                  ; GAME OVER SCREEN STATE NUMBER
 ; --- IMAGE DRAWING CONSTANTS -------------------------------------------------
 
 BLOCKSZ     EQU     4
+
 
 
 

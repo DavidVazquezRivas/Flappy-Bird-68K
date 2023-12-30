@@ -7,6 +7,12 @@
 KBDVAL      DS.B    1                       ; KEY STATE
 KBDEDGE     DS.B    1                       ; KEY EDGE
 
+; --- MOUSE RELATED VARIABLES -------------------------------------------------
+
+MOUPOS      DS.L    1                       ; MOUSE POSITION (16 BITS Y, 16 BITS X)
+MOUVAL      DS.B    1                       ; MOUSE VALUE (0,CTRL,ALT,SHIFT,DOUBLE,MID,RIGHT,LEFT)
+            DS.W    0
+
 ; --- TIMED INTERRUPT RELATED VARIABLES ---------------------------------------
 
 SCRINTCT    DS.B    1                       ; INTERRUPT COUNTER
@@ -18,6 +24,8 @@ GAMCYCCT    DC.B    0                       ; GAME CYCLE COUNTER
 
 SCOPATH     DC.B     'DATA/SCORES.dat',0
             DS.W     0
+
+
 
 
 

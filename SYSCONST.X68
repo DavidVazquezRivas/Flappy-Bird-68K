@@ -8,10 +8,17 @@ SCRFPS      EQU     60                  ; SCREEN FRAMES PER SECOND
 SCRWIDTH    EQU     640                 ; SCREEN WIDTH
 SCRHEIGH    EQU     480                 ; SCREEN HEIGHT
 
+; --- TEXT OUTPUT RELATED CONSTANTS -------------------------------------------
+
+TXTCOLOR    EQU     $0                  ; TEXT OUTPUT COLOR
+TXTSTYLE    EQU     %0001               ; TEXT STYLE (STRIKEOUT,UNDERLINE,ITALIC,BOLD)
+TXTSIZE     EQU     14                  ; TEXT SIZE
+TXTFONT     EQU     4                   ; TEXT FONT (CURRENT 'LUCIDA CONSOLE')
+
 ; --- KEYCODES ----------------------------------------------------------------
 
 KBDSPACE    EQU     ' '
-KBDP        EQU     'P'
+KBDPAUSE    EQU     27
 
 ; --- SOUND IDENTIFIERS -------------------------------------------------------
 
@@ -23,11 +30,15 @@ SNDSCO      EQU     2
 
 SCRUPDTN    EQU     0                   ; SCREEN UPDATE TRAP NUMBER
 KBDUPDTN    EQU     1                   ; KEYBOARD UPDATE TRAP NUMBER
-SNDPLTN     EQU     2                   ; SOUND PLAY TRAP NUMBER
+MOUUPDTN    EQU     2                   ; MOUSE UPDATE TRAP NUMBER
+SNDPLTN     EQU     3                   ; SOUND PLAY TRAP NUMBER
 
 ; --- INTERRUPTION NUMBERS ----------------------------------------------------
 
 SCRINTN     EQU     1                   ; SCREEN INTERRUPT TRAP NUMBER    
+
+
+
 
 
 

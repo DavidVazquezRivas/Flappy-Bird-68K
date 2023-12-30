@@ -76,13 +76,14 @@ FLOPLOT
             MOVEM.L D0-D4,-(A7)
             
             ; DRAW GRASS
-            MOVE.L  #GRASSCLR,D1            ; SET PEN COLOR
+            CLR.L   D1                      ; SET PEN COLOR
             MOVE.B  #80,D0
-            TRAP    #15     
-            MOVE.B  #81,D0                  ; SET FILL COLOR
+            TRAP    #15
+            MOVE.L  #GRASSCLR,D1            ; SET FILL COLOR
+            MOVE.B  #81,D0                  
             TRAP    #15
             MOVE.B  #87,D0                  ; SET COORDS AND DRAW
-            CLR.W   D1
+            MOVE.L  #-1,D1
             MOVE.W  #SCRHEIGH-FLOHEIGH,D2
             MOVE.W  #SCRWIDTH,D3
             MOVE.W  #SCRHEIGH-DIRTHEIG,D4
@@ -92,7 +93,8 @@ FLOPLOT
             MOVE.L  #DIRTCLR,D1             ; SET PEN COLOR
             MOVE.B  #80,D0
             TRAP    #15
-            MOVE.B  #81,D0                  ; SET FILL COLOR
+            MOVE.L  #DIRTCLR,D1             ; SET FILL COLOR
+            MOVE.B  #81,D0                  
             TRAP    #15
             MOVE.B  #87,D0
             CLR.W   D1
@@ -102,6 +104,7 @@ FLOPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 
 

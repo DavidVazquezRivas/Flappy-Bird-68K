@@ -51,6 +51,7 @@ START
             ; READ INPUT DEVICES
 
             TRAP    #KBDUPDTN
+            TRAP    #MOUUPDTN
 
             JSR     STAUPD
             
@@ -79,6 +80,7 @@ START
             INCLUDE "LIB/DMMVARS.X68"   ; DYNAMIC MEMORY VARIABLES
 
     		END    START
+
 
 
 *~Font name~Fixedsys~
