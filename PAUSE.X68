@@ -9,14 +9,24 @@ PAUSINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
-            MOVE.B  D0,-(A7)
-            MOVE.B  (KBDEDGE),D0
-            AND.B   #2,D0
-            BEQ     .CONT
-            MOVE.W  #STAGAME,(STANEXT)   
-   
-.CONT       MOVE.B  (A7)+,D0
+            
+            ; INIT BUTTON (THIS IS A TEST)
+            LEA     BUTINIT,A1
+            LEA     BUTUPD,A2
+            LEA     BUTPLOT,A3
+            MOVE    #BUTAGTP,D0
+            LEA     .TXTTMP,A4
+            MOVE.W  #200,D1
+            MOVE.W  #300,D3
+            MOVE.W  #100,D2
+            MOVE.W  #200,D4
+            MOVE.W  #STAGAME,D5
+            JSR     AGLADD
+            
             RTS
+            
+.TXTTMP    DC.B    'RESUME',0
+            DS.W    0
 
 ; ------------------------------------------------------------------------------
 PAUSUPD
@@ -34,7 +44,9 @@ PAUSUPD
             BEQ     .CONT
             MOVE.W  #STAGAME, (STANEXT)   
             
-.CONT       MOVE.B  (A7)+,D0     
+.CONT       JSR     AGLUPD
+            
+            MOVE.B  (A7)+,D0     
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -45,6 +57,7 @@ PAUSPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             BRA     GAMEPLOT
+
 
 
 

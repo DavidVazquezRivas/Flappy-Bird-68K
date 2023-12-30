@@ -29,6 +29,7 @@
             INCLUDE "SCORE.X68"         ; SCORE MANAGEMENT
             INCLUDE "CLOUD.X68"         ; CLOUD MANAGEMENT
             INCLUDE "IMAGE.X68"         ; IMAGE DRAWING ROUTINES
+            INCLUDE "BUTTON.X68"        ; BUTTONS MANAGEMENT
             
 ; --- DATA INCLUDES -----------------------------------------------------------
 
@@ -80,6 +81,7 @@ START
             INCLUDE "LIB/DMMVARS.X68"   ; DYNAMIC MEMORY VARIABLES
 
     		END    START
+
 
 
 
