@@ -10,23 +10,33 @@ PAUSINIT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             
-            ; INIT BUTTON (THIS IS A TEST)
+            ; INIT RESUME BUTTON
             LEA     BUTINIT,A1
             LEA     BUTUPD,A2
             LEA     BUTPLOT,A3
             MOVE    #BUTAGTP,D0
-            LEA     .TXTTMP,A4
-            MOVE.W  #200,D1
-            MOVE.W  #300,D3
-            MOVE.W  #100,D2
-            MOVE.W  #200,D4
+            LEA     PAUTXTB1,A4
+            MOVE.W  #SCRWIDTH/2-PAUBUTWD/2,D1
+            MOVE.W  #SCRWIDTH/2+PAUBUTWD/2,D3
+            MOVE.W  #SCRHEIGH/2-PAUBUTHG,D2
+            MOVE.W  #SCRHEIGH/2,D4
             MOVE.W  #STAGAME,D5
             JSR     AGLADD
             
-            RTS
+            ; INIT LEAVE BUTTON
+            LEA     BUTINIT,A1
+            LEA     BUTUPD,A2
+            LEA     BUTPLOT,A3
+            MOVE    #BUTAGTP,D0
+            LEA     PAUTXTB2,A4
+            MOVE.W  #SCRWIDTH/2-PAUBUTWD/2,D1
+            MOVE.W  #SCRWIDTH/2+PAUBUTWD/2,D3
+            MOVE.W  #SCRHEIGH/2+PAUBUTHG/2,D2
+            MOVE.W  #SCRHEIGH/2+3*PAUBUTHG/2,D4
+            MOVE.W  #STAINTRO,D5
+            JSR     AGLADD
             
-.TXTTMP    DC.B    'RESUME',0
-            DS.W    0
+            RTS
 
 ; ------------------------------------------------------------------------------
 PAUSUPD
@@ -44,7 +54,8 @@ PAUSUPD
             BEQ     .CONT
             MOVE.W  #STAGAME, (STANEXT)   
             
-.CONT       JSR     AGLUPD
+.CONT       MOVE.W  #BUTAGTP,D0
+            JSR     AGLUPD
             
             MOVE.B  (A7)+,D0     
             RTS
@@ -56,7 +67,40 @@ PAUSPLOT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
-            BRA     GAMEPLOT
+
+            MOVEM.L D0-D4,-(A7)
+
+            ; PLOT SCORE ITEMS (SCORE, BIRD, CLOUDS AND PIPES)
+            JSR     SCOPLOT
+            MOVE.W  #CLOUDAGT,D0
+            JSR     AGLPLOTT
+            MOVE.W  #PIPEAGTP,D0
+            JSR     AGLPLOTT
+            JSR     BIRDPLOT
+            
+            ; PLOT MENU BACKGROUND
+            CLR.L   D1                      ; SET PEN COLOR
+            MOVE.B  #80,D0  
+            TRAP    #15
+            MOVE.L  #LGGRAY,D1              ; SET FILL COLOR
+            ADDQ.B  #1,D0
+            TRAP    #15
+            MOVE.W  #SCRWIDTH/2-PAUMEWID/2,D1
+            MOVE.W  #SCRWIDTH/2+PAUMEWID/2,D3
+            MOVE.W  #SCRHEIGH/2-PAUMEHEI/2,D2
+            MOVE.W  #SCRHEIGH/2+PAUMEHEI/2,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            
+            ; PLOT BUTTONS
+            MOVE.W  #BUTAGTP,D0
+            JSR     AGLPLOTT
+            
+            MOVEM.L (A7)+,D0-D4
+            RTS
+
+
+
 
 
 

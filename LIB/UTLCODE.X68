@@ -19,15 +19,15 @@ UTLINIT
 ; -----------------------------------------------------------------------------
 UTLPRINT
 ; PRINT SCREEN CENTERED TEXT
-; INPUT    : A0 POINTER TO ZERO-TERMINATED STRING
+; INPUT    : A2 POINTER TO ZERO-TERMINATED STRING
 ;            D0.B SCREEN ROW TO PRINT TEXT
 ; OUTPUT   : D0.B NEXT ROW
 ; MODIFIES : NONE (ASIDE OF OUTPUT)
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D1/A0-A1,-(A7)
+            MOVEM.L D0-D1/A1-A2,-(A7)
             CLR.B   D1
-            MOVE.L  A0,A1
-.LOOP       TST.B   (A0)+
+            MOVE.L  A2,A1
+.LOOP       TST.B   (A2)+
             BEQ     .ENDLOOP
             ADDQ.B  #1,D1
             BRA     .LOOP
@@ -40,7 +40,7 @@ UTLPRINT
             TRAP    #15
             MOVE.B  #13,D0
             TRAP    #15
-            MOVEM.L (A7)+,D0-D1/A0-A1
+            MOVEM.L (A7)+,D0-D1/A1-A2
             ADDQ.B  #1,D0
             RTS
 
@@ -93,6 +93,7 @@ UTLRAND
             DC.B    236, 127, 126, 3  , 207, 45 , 193, 2
             DC.B    148, 91 , 35 , 242, 139, 205, 248, 237
             DC.B    116, 51 , 236, 185, 15 , 213, 221, 6
+
 
 *~Font name~Fixedsys~
 *~Font size~24~

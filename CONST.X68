@@ -8,6 +8,7 @@ DKYELLOW    EQU     $0000BBBB           ; DARK YELLOW COLOR
 LGYELLOW    EQU     $0000FFFF           ; LIGHT YELLOW COLOR
 DARKGRAY    EQU     $000C0C0C           ; DARK GRAY COLOR
 NORMGRAY    EQU     $00616161           ; NORMAL (NOT DARK OR LIGHT) GRAY COLOR 
+LGGRAY      EQU     $00A3A3A3           ; LIGHT GRAY COLOR
 SKYBLUE     EQU     $00FFBF80           ; SKY BLUE COLOR
 NRMGREEN    EQU     $0018732C           ; NORMAL (NOT DARK OR LIGHT) GREEN COLOR
 LGGREEN     EQU     $0035DE3B           ; LIGHT GREEN COLOR
@@ -43,7 +44,7 @@ DIRTHEIG    EQU     45                  ; DIRT PART HEIGHT
 ; --- CLOUD (BACKGROUND) RELATED CONSTANTS ------------------------------------
 
 CLDSPMSK    EQU     $FFFFFFFC           ; MASK TO INIT CLOUD SPEED
-MASKNWCL    EQU     %01111111           ; MASK TO SPAWN NEW CLOUD
+MASKNWCL    EQU     %11111111           ; MASK TO SPAWN NEW CLOUD
 CLOUDAGT    EQU     1                   ; CLOUD AGENT TYPE CODE
 
 ; --- SCOREBOARD RELATED CONSTANTS --------------------------------------------
@@ -63,13 +64,23 @@ STAGOVER    EQU     4                   ; GAME OVER SCREEN STATE NUMBER
 
 ; --- IMAGE DRAWING CONSTANTS -------------------------------------------------
 
-BLOCKSZ     EQU     4                   ; BLOCK
+BLOCKSZ     EQU     4                   ; BLOCK SIZE
 
 ; --- BUTTON RELATED CONSTANTS ------------------------------------------------
 
 BUTCOLOR    EQU     NRMGREEN            ; BUTTON COLOR
 BUTHVCLR    EQU     LGGREEN             ; BUTTON COLOR WHILE BEING HOVER
 BUTAGTP     EQU     3                   ; BUTTON AGENT TYPE CODE
+
+; --- PAUSE STATE RELATED CONSTANTS -------------------------------------------
+
+PAUMEHEI    EQU     150                 ; PAUSE MENU HEIGHT
+PAUMEWID    EQU     200                 ; PAUSE MENU WIDTH
+PAUBUTWD    EQU     130                 ; PAUSE MENU BUTTON WIDTH
+PAUBUTHG    EQU     35                  ; PAUSE MENU BUTTON HEIGHT
+
+
+
 
 *~Font name~Fixedsys~
 *~Font size~18~

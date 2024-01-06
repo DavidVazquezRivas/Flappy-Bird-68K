@@ -75,7 +75,7 @@ SCOPLOT
             TRAP    #15
             
             ; PLOT THE SCORE
-            LEA     .SCOTXT,A1
+            LEA     SCOTXT,A1
             CLR.L   D1
             MOVE.W  (SCORE),D1
             MOVE.B  #17,D0
@@ -87,7 +87,7 @@ SCOPLOT
             TRAP    #15
             
             ; PLOT THE HIGHSCORE
-            LEA     .HISCOTXT,A1
+            LEA     HISCOTXT,A1
             CLR.L   D1
             MOVE.W  (HIGHSCO),D1
             MOVE.B  #17,D0
@@ -95,9 +95,6 @@ SCOPLOT
             
             MOVEM.L (A7)+,D0-D1/A1
             RTS
-            
-.SCOTXT     DC.B    'SCORE: ',0
-.HISCOTXT   DC.B    'HIGHSCORE: ',0
 
 ; ------------------------------------------------------------------------------
 SCOSAVE
@@ -133,6 +130,7 @@ SCOSAVE
             
 .END        MOVEM.L (A7)+,A0-A1/D0-D2
             RTS
+
 
 
 

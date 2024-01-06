@@ -85,15 +85,13 @@ BUTPLOT
             MOVEM.L A0-A1/D0-D4,-(A7)
             
             ; SET COLORS
-            CLR.L   D1              ; SET PEN COLOR
+            MOVE.L  #BUTCOLOR,D1    ; SET PEN COLOR
             MOVE.B  #80,D0
             TRAP    #15
             MOVE.B  16(A0),D0       ; SET FILL COLOR
             BEQ     .NOHOVER
             MOVE.L  #BUTHVCLR,D1
-            BRA     .HOVER
-.NOHOVER    MOVE.L  #BUTCOLOR,D1
-.HOVER      MOVE.B  #81,D0
+.NOHOVER    MOVE.B  #81,D0
             TRAP    #15
             ; SET COORDS
             MOVE.B  #87,D0
@@ -108,15 +106,14 @@ BUTPLOT
             MOVE.L  10(A0),A1
 .LOOP       TST.B   (A1)+
             BEQ     .ENDLOOP
-            ADDQ.B  #1,D0
+            ADD.B   #TXTSIZE-2,D0
             BRA     .LOOP
-.ENDLOOP    MULU    #TXTSIZE,D0     ; TEXT WIDTH IN PIXELS
-            SUB.W   D1,D3           ; BUTTON WIDTH
+.ENDLOOP    SUB.W   D1,D3           ; BUTTON WIDTH
             SUB.W   D0,D3           
             LSR.W   #1,D3           ; LEFT TEXT MARGIN
             ADD.W   D3,D1           ; X TEXT POSITION
             SUB.W   D2,D4           ; BUTTON HEIGHT
-            SUB.W   #TXTSIZE,D0     
+            SUB.W   #TXTSIZE-2,D4     
             LSR.W   #1,D4           ; TOP TEXT MARGIN
             ADD.W   D4,D2           ; Y TEXT POSITION
             MOVEA.L 10(A0),A1
@@ -126,6 +123,8 @@ BUTPLOT
             
             MOVEM.L (A7)+,A0-A1/D0-D4
             RTS
+
+
 
 
 
