@@ -82,7 +82,7 @@ BUTPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             
-            MOVEM.L A0-A1/D0-D4,-(A7)
+            MOVEM.L A0-A1/D0-D5,-(A7)
             
             ; SET COLORS
             MOVE.L  #BUTCOLOR,D1    ; SET PEN COLOR
@@ -102,13 +102,17 @@ BUTPLOT
             TRAP    #15
             
             ; DRAW BUTTON TEXT
+            MOVE.L  D1,D5
+            MOVE.L  #BLACK,D1
+            JSR     TXTINIT
             CLR.W   D0              ; COUNT TEXT LENGTH
             MOVE.L  10(A0),A1
 .LOOP       TST.B   (A1)+
             BEQ     .ENDLOOP
             ADD.B   #TXTSIZE-2,D0
             BRA     .LOOP
-.ENDLOOP    SUB.W   D1,D3           ; BUTTON WIDTH
+.ENDLOOP    MOVE.L  D5,D1
+            SUB.W   D1,D3           ; BUTTON WIDTH
             SUB.W   D0,D3           
             LSR.W   #1,D3           ; LEFT TEXT MARGIN
             ADD.W   D3,D1           ; X TEXT POSITION
@@ -121,8 +125,9 @@ BUTPLOT
             TRAP    #15
             
             
-            MOVEM.L (A7)+,A0-A1/D0-D4
+            MOVEM.L (A7)+,A0-A1/D0-D5
             RTS
+
 
 
 

@@ -75,6 +75,8 @@ SCOPLOT
             TRAP    #15
             
             ; PLOT THE SCORE
+            MOVE.L  #BLACK,D1
+            JSR     TXTINIT
             LEA     SCOTXT,A1
             CLR.L   D1
             MOVE.W  (SCORE),D1
@@ -130,6 +132,7 @@ SCOSAVE
             
 .END        MOVEM.L (A7)+,A0-A1/D0-D2
             RTS
+
 
 
 

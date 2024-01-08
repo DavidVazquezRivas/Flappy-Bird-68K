@@ -17,6 +17,7 @@ SYSINIT
             MOVE.L  #SNDPLAY,($80+SNDPLTN*4)
             MOVE.L  #SCRTIM,($60+SCRINTN*4)
             
+            MOVE.L  #TXTCOLOR,D1
             JSR     TXTINIT
             JSR     KBDINIT
             JSR     MOUINIT
@@ -32,14 +33,13 @@ SYSINIT
 ; -----------------------------------------------------------------------------
 TXTINIT
 ; INITIALIZES THE TEXT OUTPUT
-; INPUT     : NONE
+; INPUT     : D1.L TEXT COLOR 
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
             MOVEM.L D0-D2,-(A7)
             
-            MOVE.L  #TXTCOLOR,D1
             MOVE.L  #TXTFONT<<24|TXTSIZE<<16|TXTSTYLE,D2
             MOVE.B  #21,D0
             TRAP    #15
@@ -246,6 +246,7 @@ MOUUPD
             
             MOVEM.L (A7)+,D0-D1
             RTE
+
 
 
 

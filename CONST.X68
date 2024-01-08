@@ -9,11 +9,13 @@ LGYELLOW    EQU     $0000FFFF           ; LIGHT YELLOW COLOR
 DARKGRAY    EQU     $000C0C0C           ; DARK GRAY COLOR
 NORMGRAY    EQU     $00616161           ; NORMAL (NOT DARK OR LIGHT) GRAY COLOR 
 LGGRAY      EQU     $00A3A3A3           ; LIGHT GRAY COLOR
+DARKBLUE    EQU     $00231505           ; DARK BLUE COLOR 
 SKYBLUE     EQU     $00FFBF80           ; SKY BLUE COLOR
 NRMGREEN    EQU     $0018732C           ; NORMAL (NOT DARK OR LIGHT) GREEN COLOR
 LGGREEN     EQU     $0035DE3B           ; LIGHT GREEN COLOR
 LGBROWN     EQU     $00306284           ; LIGHT BROWN COLOR
 WHITE       EQU     $00FEFDFB           ; WHITE COLOR
+BLACK       EQU     $00000000           ; BLACK COLOR
 
 ; --- BIRD RELATED CONSTANTS --------------------------------------------------
 
@@ -78,6 +80,8 @@ PAUMEHEI    EQU     150                 ; PAUSE MENU HEIGHT
 PAUMEWID    EQU     200                 ; PAUSE MENU WIDTH
 PAUBUTWD    EQU     130                 ; PAUSE MENU BUTTON WIDTH
 PAUBUTHG    EQU     35                  ; PAUSE MENU BUTTON HEIGHT
+PAUTITLN    EQU     15                  ; PAUSE BUTTON TITLE LINE
+
 
 
 

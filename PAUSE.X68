@@ -68,7 +68,7 @@ PAUSPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
 
-            MOVEM.L D0-D4,-(A7)
+            MOVEM.L D0-D4/A2,-(A7)
 
             ; PLOT SCORE ITEMS (SCORE, BIRD, CLOUDS AND PIPES)
             JSR     SCOPLOT
@@ -92,12 +92,54 @@ PAUSPLOT
             MOVE.B  #87,D0
             TRAP    #15
             
+            ; PLOT MENU TITLE
+            MOVE.L  #DARKBLUE,D1
+            MOVE.B  #80,D0
+            TRAP    #15
+            ADDQ.B  #1,D0
+            TRAP    #15
+            MOVE.W  #SCRWIDTH/2-PAUBUTWD/2,D1
+            MOVE.W  #SCRWIDTH/2+PAUBUTWD/2,D3
+            SUB.W   #PAUBUTHG/2,D2
+            MOVE.W  D2,D4
+            ADD.W   #PAUBUTHG,D4
+            MOVE.B  #87,D0
+            TRAP    #15
+            MOVE.W  D1,D3
+            SUB.W   #PAUBUTHG/2,D1
+            ADD.W   #PAUBUTHG/2,D3
+            ADDQ.B  #1,D0
+            TRAP    #15
+            ADD.W   #PAUBUTWD,D1
+            ADD.W   #PAUBUTWD,D3
+            TRAP    #15
+            MOVE.L  #WHITE,D1
+            JSR     TXTINIT
+            CLR.W   D0              ; COUNT TEXT LENGTH
+            LEA     PAUTITLE,A1
+.LOOP       TST.B   (A1)+
+            BEQ     .ENDLOOP
+            ADD.B   #TXTSIZE-2,D0
+            BRA     .LOOP
+.ENDLOOP    
+            MOVE.W  #SCRWIDTH/2,D1
+            LSR.W   #1,D0
+            SUB.W   D0,D1
+            ADD.W   #PAUBUTHG/2,D2
+            SUB.W   #TXTSIZE/2-1,D2
+            LEA     PAUTITLE,A1
+            MOVE.B  #95,D0
+            TRAP    #15
+
+            
+            
             ; PLOT BUTTONS
             MOVE.W  #BUTAGTP,D0
             JSR     AGLPLOTT
             
-            MOVEM.L (A7)+,D0-D4
+            MOVEM.L (A7)+,D0-D4/A2
             RTS
+
 
 
 
