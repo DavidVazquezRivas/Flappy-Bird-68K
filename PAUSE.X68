@@ -9,6 +9,8 @@ PAUSINIT
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
+
+            MOVEM.L  A1-A4/D0-D5,-(A7)
             
             ; INIT RESUME BUTTON
             LEA     BUTINIT,A1
@@ -36,6 +38,7 @@ PAUSINIT
             MOVE.W  #STAINTRO,D5
             JSR     AGLADD
             
+            MOVEM.L  (A7)+,A1-A4/D0-D5
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -70,7 +73,7 @@ PAUSPLOT
 
             MOVEM.L D0-D4/A2,-(A7)
 
-            ; PLOT SCORE ITEMS (SCORE, BIRD, CLOUDS AND PIPES)
+            ; PLOT ITEMS (SCORE, BIRD, CLOUDS AND PIPES)
             JSR     SCOPLOT
             MOVE.W  #CLOUDAGT,D0
             JSR     AGLPLOTT
@@ -139,6 +142,7 @@ PAUSPLOT
             
             MOVEM.L (A7)+,D0-D4/A2
             RTS
+
 
 
 

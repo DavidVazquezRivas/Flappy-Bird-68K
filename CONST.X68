@@ -80,7 +80,13 @@ PAUMEHEI    EQU     150                 ; PAUSE MENU HEIGHT
 PAUMEWID    EQU     200                 ; PAUSE MENU WIDTH
 PAUBUTWD    EQU     130                 ; PAUSE MENU BUTTON WIDTH
 PAUBUTHG    EQU     35                  ; PAUSE MENU BUTTON HEIGHT
-PAUTITLN    EQU     15                  ; PAUSE BUTTON TITLE LINE
+
+; --- GAME OVER STATE RELATED CONSTANTS ---------------------------------------
+
+GOVMEHEI    EQU     100                 ; GAME OVER MENU HEIGHT
+GOVMEWID    EQU     200                 ; GAME OVER MENU WIDTH
+GOVBUTWD    EQU     130                 ; GAME OVER MENU BUTTON WIDTH
+GOVBUTHG    EQU     35                  ; GAME OVER MENU BUTTON HEIGHT
 
 
 
