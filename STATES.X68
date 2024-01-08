@@ -38,8 +38,10 @@ STAUPD
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.INITBL     DC.L    ISCINIT,INSINIT,GAMEINIT,PAUSINIT,GOVINIT
+.INITBL     DC.L    ISCINIT,INSINIT,GAMEINIT,PAUSINIT,GOVINIT,.EXIT
 .UPDTBL     DC.L    ISCUPD,INSUPD,GAMEUPD,PAUSUPD,GOVUPD
+
+.EXIT       SIMHALT
 
 ; -----------------------------------------------------------------------------
 STAPLOT
@@ -68,6 +70,7 @@ STAEMPTY
 ; NOTE     - JUST A PLACEHOLDER. NOTHING TO DO.
 ; -----------------------------------------------------------------------------
             RTS
+
 
 
 

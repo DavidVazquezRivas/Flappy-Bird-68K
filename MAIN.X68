@@ -33,7 +33,8 @@
             
 ; --- DATA INCLUDES -----------------------------------------------------------
 
-            INCLUDE "DATA/CLOUDSDATA.X68"    ; CLOUD IMAGES DATA
+            INCLUDE "DATA/CLOUDSDATA.X68"   ; CLOUD IMAGES DATA
+            INCLUDE "DATA/LOGODATA.X68"     ; LOGO IMAGE DATA   
             
 
 START
@@ -82,6 +83,7 @@ START
             INCLUDE "LIB/DMMVARS.X68"   ; DYNAMIC MEMORY VARIABLES
 
     		END    START
+
 
 
 

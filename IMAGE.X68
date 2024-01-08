@@ -49,7 +49,7 @@ IMGPLOT
 .SAMEROW    DBRA    D6,.LOOP2
             
             MOVE.L  (A1)+,D1
-            CMP.W   #.ENDFLAG,D1
+            CMP.L   #.ENDFLAG,D1
             BNE     .LOOP1
             
             
@@ -59,6 +59,7 @@ IMGPLOT
 .ENDFLAG    EQU     $FFFFFFFF
 
 .STARTX     DS.W    1
+
 
 
 

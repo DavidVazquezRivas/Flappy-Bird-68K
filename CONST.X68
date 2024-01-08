@@ -63,6 +63,7 @@ STAINSTR    EQU     1                   ; INSTRUCTION STATE NUMBER
 STAGAME     EQU     2                   ; GAME SCREEN STATE NUMBER
 STAPAUSE    EQU     3                   ; PAUSE SCREEN STATE NUMBER
 STAGOVER    EQU     4                   ; GAME OVER SCREEN STATE NUMBER
+STAEXIT     EQU     5                   ; EXIT STATE
 
 ; --- IMAGE DRAWING CONSTANTS -------------------------------------------------
 
@@ -73,6 +74,13 @@ BLOCKSZ     EQU     4                   ; BLOCK SIZE
 BUTCOLOR    EQU     NRMGREEN            ; BUTTON COLOR
 BUTHVCLR    EQU     LGGREEN             ; BUTTON COLOR WHILE BEING HOVER
 BUTAGTP     EQU     3                   ; BUTTON AGENT TYPE CODE
+
+; --- INTRO STATE RELATED CONSTANTS -------------------------------------------
+
+INTMEHEI    EQU     230                 ; INTRODUCTION MENU HEIGHT
+INTMEWID    EQU     300                 ; INTRODUCTION MENU WIDTH
+INTBUTWD    EQU     150                 ; INTRODUCTION MENU BUTTON WIDTH
+INTBUTHG    EQU     50                  ; INTRODUCTION MENU BUTTON HEIGHT
 
 ; --- PAUSE STATE RELATED CONSTANTS -------------------------------------------
 
@@ -87,6 +95,8 @@ GOVMEHEI    EQU     100                 ; GAME OVER MENU HEIGHT
 GOVMEWID    EQU     200                 ; GAME OVER MENU WIDTH
 GOVBUTWD    EQU     130                 ; GAME OVER MENU BUTTON WIDTH
 GOVBUTHG    EQU     35                  ; GAME OVER MENU BUTTON HEIGHT
+
+
 
 
 
