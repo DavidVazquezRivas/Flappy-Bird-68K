@@ -22,8 +22,9 @@ GAMCYCCT    DC.B    0                       ; GAME CYCLE COUNTER
             
 ; --- FILE PATHS --------------------------------------------------------------
 
-SCOPATH     DC.B     'DATA/SCORES.dat',0
+SCOPATH     DC.B     'DATA/SCORES.dat',0    ; SCORE FILE PATH
             DS.W     0
+
 
 
 

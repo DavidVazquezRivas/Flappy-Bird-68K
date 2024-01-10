@@ -17,14 +17,14 @@ TXTFONT     EQU     4                   ; TEXT FONT (CURRENT 'LUCIDA CONSOLE')
 
 ; --- KEYCODES ----------------------------------------------------------------
 
-KBDSPACE    EQU     ' '
-KBDPAUSE    EQU     27
+KBDSPACE    EQU     ' '                 ; SPACEBOARD KEYCODE
+KBDPAUSE    EQU     27                  ; ESCAPE KEYCODE
 
 ; --- SOUND IDENTIFIERS -------------------------------------------------------
 
-SNDDIE      EQU     0
-SNDJUMP     EQU     1
-SNDSCO      EQU     2
+SNDDIE      EQU     0                   ; DIE SOUND IDENTIFIER
+SNDJUMP     EQU     1                   ; JUMP SOUND IDENTIFIER
+SNDSCO      EQU     2                   ; SCORE SOUND IDENIFIER
 
 ; --- TRAP NUMBERS ------------------------------------------------------------
 
@@ -36,6 +36,7 @@ SNDPLTN     EQU     3                   ; SOUND PLAY TRAP NUMBER
 ; --- INTERRUPTION NUMBERS ----------------------------------------------------
 
 SCRINTN     EQU     1                   ; SCREEN INTERRUPT TRAP NUMBER    
+
 
 
 

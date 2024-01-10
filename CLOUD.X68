@@ -14,7 +14,7 @@ CLDINIT
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
-            MOVE.L  D0,-(A7)
+            MOVEM.L  D0-D1,-(A7)
 
             ; INIT POSITION
             MOVE.W  #SCRWIDTH,(A0)
@@ -27,7 +27,7 @@ CLDINIT
             OR.L    #CLDSPMSK,D1
             MOVE.W  D1,4(A0)
             
-            MOVE.L (A7)+,D0
+            MOVEM.L (A7)+,D0-D1
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -93,6 +93,8 @@ CLDTBL      DC.L    CLOUD0W
             DC.L    CLOUD5W
             DC.L    CLOUD6W
             DC.L    CLOUD7W
+
+
 
 
 

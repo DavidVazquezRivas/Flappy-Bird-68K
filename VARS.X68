@@ -4,7 +4,7 @@
 
 ; --- BIRD RELATED VARIABLES --------------------------------------------------
 
-BIRDPOSY    DC.W    SCRHEIGH/2         ; BIRD POSITION Y
+BIRDPOSY    DC.W    SCRHEIGH/2          ; BIRD POSITION Y
 BIRDVELY    DC.W    0                   ; BIRD SPEED Y
 BIRDPCOL    DC.W    DKYELLOW            ; BIRD PEN COLOR
 BIRDFCOL    DC.W    LGYELLOW            ; BIRD FILL COLOR
@@ -18,6 +18,7 @@ HIGHSCO     DS.W    1                   ; HIGH SCORE
 
 STACUR      DS.W    1                   ; CURRENT STATE
 STANEXT     DS.W    1                   ; NEXT STATE
+
 
 
 

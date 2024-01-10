@@ -20,7 +20,9 @@ STAUPD
 ; OUTPUT   - NONE
 ; MODIFIES - NONE
 ; -----------------------------------------------------------------------------
+
             MOVEM.L D0/A0,-(A7)
+            
             CLR.L   D0
             MOVE.W  (STANEXT),D0
             CMP.W   (STACUR),D0
@@ -36,12 +38,14 @@ STAUPD
             MOVE.L  D0,A0
             MOVE.L  .UPDTBL(A0),A0
             JSR     (A0)
+            
             MOVEM.L (A7)+,D0/A0
             RTS
-.INITBL     DC.L    ISCINIT,INSINIT,GAMEINIT,PAUSINIT,GOVINIT,.EXIT
-.UPDTBL     DC.L    ISCUPD,INSUPD,GAMEUPD,PAUSUPD,GOVUPD
+.INITBL     DC.L    ISCINIT,GAMEINIT,PAUSINIT,GOVINIT,.EXIT
+.UPDTBL     DC.L    ISCUPD,GAMEUPD,PAUSUPD,GOVUPD
 
-.EXIT       SIMHALT
+.EXIT       MOVEM.L (A7)+,D0/A0
+            SIMHALT
 
 ; -----------------------------------------------------------------------------
 STAPLOT
@@ -59,7 +63,7 @@ STAPLOT
             JSR     (A0)
             MOVEM.L (A7)+,D0/A0
             RTS
-.PLTTBL     DC.L    ISCPLOT,INSPLOT,GAMEPLOT,PAUSPLOT,GOVPLOT
+.PLTTBL     DC.L    ISCPLOT,GAMEPLOT,PAUSPLOT,GOVPLOT
 
 ; -----------------------------------------------------------------------------
 STAEMPTY
@@ -70,6 +74,9 @@ STAEMPTY
 ; NOTE     - JUST A PLACEHOLDER. NOTHING TO DO.
 ; -----------------------------------------------------------------------------
             RTS
+
+
+
 
 
 

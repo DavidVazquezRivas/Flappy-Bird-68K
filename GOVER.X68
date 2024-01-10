@@ -57,7 +57,7 @@ GOVPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
 
-            MOVEM.L D0-D4/A2,-(A7)
+            MOVEM.L D0-D4/A1,-(A7)
 
             ; PLOT ITEMS (SCORE, BIRD, CLOUDS AND PIPES)
             JSR     SCOPLOT
@@ -124,8 +124,9 @@ GOVPLOT
             MOVE.W  #BUTAGTP,D0
             JSR     AGLPLOTT
             
-            MOVEM.L (A7)+,D0-D4/A2
+            MOVEM.L (A7)+,D0-D4/A1
             RTS
+
 
 
 

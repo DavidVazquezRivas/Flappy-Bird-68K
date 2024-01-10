@@ -88,7 +88,7 @@ AGLPLOT
 ; MODIFIES - NONE
 ; NOTE : 8 IS THE MAX AGENT TYPES
 ; -----------------------------------------------------------------------------
-            MOVEM.L A0-A1,-(A7)
+            MOVEM.L D0/A0-A1,-(A7)
             
             CLR.B   D0                      ; CURRENT AGENT TYPE UPDATING
 .LOOP1      ADDQ.B  #1,D0    
@@ -103,7 +103,7 @@ AGLPLOT
 .NEXTTP     CMP.B   #8,D0
             BLT     .LOOP1
             
-.END        MOVEM.L (A7)+,A0-A1
+.END        MOVEM.L (A7)+,D0/A0-A1
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -159,6 +159,7 @@ AGLKILL     EQU     DMMFREE
 ; MODIFIES - NONE
 ; NOTE     - IT IS JUST A WRAPPER FOR DMMFREE
 ; -----------------------------------------------------------------------------
+
 
 
 

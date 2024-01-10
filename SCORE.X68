@@ -10,7 +10,7 @@ SCOINIT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
 
-            MOVEM.L D0-D2/A0-A1,-(A7)
+            MOVEM.L D0-D2/A1,-(A7)
             CLR.W   (SCORE)
             CLR.W   (HIGHSCO)
             
@@ -29,7 +29,7 @@ SCOINIT
             MOVE.B  #56,D0
             TRAP    #15
             
-            MOVEM.L (A7)+,D0-D2/A0-A1
+            MOVEM.L (A7)+,D0-D2/A1
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ SCOSAVE
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
 
-            MOVEM.L A0-A1/D0-D2,-(A7)
+            MOVEM.L A1/D0-D2,-(A7)
             ; IF ACTUAL SCORE > HIGH SCORE
             MOVE.W  (SCORE),D0
             MOVE.W  (HIGHSCO),D1
@@ -130,8 +130,9 @@ SCOSAVE
             TRAP    #15
             
             
-.END        MOVEM.L (A7)+,A0-A1/D0-D2
+.END        MOVEM.L (A7)+,A1/D0-D2
             RTS
+
 
 
 

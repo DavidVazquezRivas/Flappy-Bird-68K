@@ -8,11 +8,16 @@ GAMEINIT
 ; INPUT    : NONE
 ; OUTPUT   : NONE
 ; MODIFIES : NONE
-; ------------------------------------------------------------------------------        
+; ------------------------------------------------------------------------------     
+
+            MOVE.W  D0,-(A7)
+   
             MOVE.B  (GAMCYCCT),(SCRCYCCT)
             ; CLEAN BUTTONS
             MOVE.W  #BUTAGTP,D0
             JSR AGLCLEAN
+            
+            MOVE.W  (A7)+,D0
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -23,8 +28,9 @@ GAMEUPD
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
-            JSR     BACKUPD
             MOVE.B  D0,-(A7)
+            
+            JSR     BACKUPD
             MOVE.B  (KBDEDGE),D0
             BTST    #1,D0
             BEQ     .NOPAUSE
@@ -72,6 +78,7 @@ GAMEPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
 
 
 

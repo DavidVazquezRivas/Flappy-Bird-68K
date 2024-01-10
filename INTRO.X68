@@ -11,6 +11,7 @@ ISCINIT
 ; ------------------------------------------------------------------------------
 
             MOVEM.L  A1-A4/D0-D5,-(A7)
+            
             CLR.B   MOUVAL
             CLR.B   KBDVAL
             CLR.B   KBDEDGE
@@ -59,13 +60,16 @@ ISCUPD
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
             
+            MOVE.B  D0,-(A7)
+            
             JSR BACKUPD
             JSR AGLUPD
             MOVE.B  (KBDEDGE),D0
             AND.B   #1,D0
             BEQ     .CONT
-            MOVE.W  #STAGAME,(STANEXT)      
-.CONT
+            MOVE.W  #STAGAME,(STANEXT)    
+  
+.CONT       MOVE.B  (A7)+,D0
             RTS
 
 ; ------------------------------------------------------------------------------
@@ -76,7 +80,7 @@ ISCPLOT
 ; MODIFIES : NONE
 ; ------------------------------------------------------------------------------
 
-            MOVEM.L D0-D4/D6-D7,-(A7)
+            MOVEM.L D0-D4/D6-D7/A1,-(A7)
 
             ; PLOT ITEMS (SCORE, BIRD, CLOUDS AND PIPES)
             MOVE.W  #CLOUDAGT,D0
@@ -114,8 +118,9 @@ ISCPLOT
             MOVE.W  #BUTAGTP,D0
             JSR     AGLPLOTT
             
-            MOVEM.L (A7)+,D0-D4/D6-D7
+            MOVEM.L (A7)+,D0-D4/D6-D7/A1
             RTS
+
 
 
 

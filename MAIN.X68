@@ -19,7 +19,6 @@
             INCLUDE "SYSTEM.X68"            ; SYSTEM CODE
             INCLUDE "STATES.X68"            ; STATES MANAGEMENT
             INCLUDE "INTRO.X68"             ; INTRO STATE MANAGEMENT
-            INCLUDE "INSTRUCTIONS.X68"      ; INSTRUCTIONS STATE MANAGEMENT
             INCLUDE "GAME.X68"              ; GAME STATE MANAGEMENT
             INCLUDE "PAUSE.X68"             ; PAUSE STATE MANAGEMENT
             INCLUDE "GOVER.X68"             ; GAME OVER STATE MANAGEMENT
@@ -72,8 +71,6 @@ START
             
             BRA     .LOOP
             
-            SIMHALT
-            
 ; --- VARIABLES ---------------------------------------------------------------
     		
     		INCLUDE "SYSVARS.X68"       ; SYSTEM VARIABLES
@@ -83,6 +80,8 @@ START
             INCLUDE "LIB/DMMVARS.X68"   ; DYNAMIC MEMORY VARIABLES
 
     		END    START
+
+
 
 
 

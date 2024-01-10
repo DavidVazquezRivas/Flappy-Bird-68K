@@ -29,7 +29,7 @@ PIPEUPD
 ; OUTPUT    : NONE
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
-            MOVEM.L D0-D1,-(A7)
+            MOVEM.L D0-D2,-(A7)
             
             MOVE.W  (STACUR),D0
             CMP.W   #STAGAME,D0
@@ -85,7 +85,7 @@ PIPEUPD
             BNE     .END
             JSR     SCOINC
             
-.END        MOVEM.L  (A7)+,D0-D1
+.END        MOVEM.L  (A7)+,D0-D2
             RTS
 
 ; -----------------------------------------------------------------------------
@@ -139,6 +139,7 @@ PIPEPLOT
             
             MOVEM.L (A7)+,D0-D4
             RTS
+
 
 
 

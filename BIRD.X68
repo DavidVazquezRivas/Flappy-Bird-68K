@@ -21,7 +21,7 @@ BIRDUPD
 ; MODIFIES : NONE
 ; -----------------------------------------------------------------------------
 
-            MOVEM.L D0-D2,-(A7)
+            MOVEM.L D0/D2/D7,-(A7)
 
             ; UPDATE VELOCITY
             MOVE.B  (KBDEDGE),D2        ; CHECK IF SHOULD JUMP
@@ -49,7 +49,7 @@ BIRDUPD
             ; STORE POSITION
 .NOCOL      MOVE.W  D0,(BIRDPOSY)
 
-.DONE       MOVEM.L (A7)+,D0-D2
+.DONE       MOVEM.L (A7)+,D0/D2/D7
             
             RTS
 
@@ -89,6 +89,7 @@ BIRDPLOT
             MOVEM.L (A7)+,D0-D4
 
             RTS
+
 
 
 

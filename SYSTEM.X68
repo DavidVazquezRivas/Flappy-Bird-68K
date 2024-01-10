@@ -10,6 +10,8 @@ SYSINIT
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
+            MOVE.L  D1,-(A7)
+            
             ; INSTALL TRAPS AND INTERRUPTIONS
             MOVE.L  #SCRPLOT,($80+SCRUPDTN*4)
             MOVE.L  #KBDUPD,($80+KBDUPDTN*4)
@@ -26,6 +28,7 @@ SYSINIT
             JSR     DMMINIT
             
             ; SET USER MODE AND ALLOW INTERRUPTIONS
+            MOVE.L  (A7)+,D1
             MOVE.W  SR,-(A7)
             ANDI.W  #$D8FF,(A7)
             RTE
@@ -102,7 +105,7 @@ SCRINIT
 ; MODIFIES  : NONE
 ; -----------------------------------------------------------------------------
 
-            MOVEM.L D0-D1,-(A7)
+            MOVEM.L D0-D3,-(A7)
             
             ; SET SCREEN RESOLUTION
             MOVE.B  #33,D0
@@ -133,7 +136,7 @@ SCRINIT
             ; CLEAR INTERRUPT COUNTER
             CLR.W   (SCRINTCT)
             
-            MOVEM.L (A7)+,D0-D1
+            MOVEM.L (A7)+,D0-D3
             RTS
             
 ; -----------------------------------------------------------------------------
@@ -246,6 +249,7 @@ MOUUPD
             
             MOVEM.L (A7)+,D0-D1
             RTE
+
 
 
 

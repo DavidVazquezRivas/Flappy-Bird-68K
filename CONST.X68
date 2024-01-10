@@ -59,11 +59,10 @@ HSCOLINE    EQU     $1018               ; HIGHSCORE TEXT COORDINATE
 
 STANONE     EQU     -1                  ; NON-EXISTENT STATE NUMBER
 STAINTRO    EQU     0                   ; INTRO SCREEN STATE NUMBER
-STAINSTR    EQU     1                   ; INSTRUCTION STATE NUMBER
-STAGAME     EQU     2                   ; GAME SCREEN STATE NUMBER
-STAPAUSE    EQU     3                   ; PAUSE SCREEN STATE NUMBER
-STAGOVER    EQU     4                   ; GAME OVER SCREEN STATE NUMBER
-STAEXIT     EQU     5                   ; EXIT STATE
+STAGAME     EQU     1                   ; GAME SCREEN STATE NUMBER
+STAPAUSE    EQU     2                   ; PAUSE SCREEN STATE NUMBER
+STAGOVER    EQU     3                   ; GAME OVER SCREEN STATE NUMBER
+STAEXIT     EQU     4                   ; EXIT STATE
 
 ; --- IMAGE DRAWING CONSTANTS -------------------------------------------------
 
@@ -95,6 +94,7 @@ GOVMEHEI    EQU     100                 ; GAME OVER MENU HEIGHT
 GOVMEWID    EQU     200                 ; GAME OVER MENU WIDTH
 GOVBUTWD    EQU     130                 ; GAME OVER MENU BUTTON WIDTH
 GOVBUTHG    EQU     35                  ; GAME OVER MENU BUTTON HEIGHT
+
 
 
 
