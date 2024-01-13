@@ -12,7 +12,6 @@ GAMEINIT
 
             MOVE.W  D0,-(A7)
    
-            MOVE.B  (GAMCYCCT),(SCRCYCCT)
             ; CLEAN BUTTONS
             MOVE.W  #BUTAGTP,D0
             JSR AGLCLEAN
@@ -35,11 +34,11 @@ GAMEUPD
             BTST    #1,D0
             BEQ     .NOPAUSE
             MOVE.W  #STAPAUSE, (STANEXT)
-            MOVE.B  (SCRCYCCT),(GAMCYCCT)
             
 .NOPAUSE    JSR     NEWPIPE
             JSR     AGLUPD
             JSR     BIRDUPD
+            ADDQ.B  #1,(GAMCYCCT)
             
             MOVE.B  (A7)+,D0
             RTS
@@ -54,7 +53,7 @@ NEWPIPE
 
             MOVEM.L D0/A1-A3,-(A7)
             
-            MOVE.B  (SCRCYCCT),D0
+            MOVE.B  (GAMCYCCT),D0
             ANDI.B  #MASKNWPP,D0
             BNE     .GOUPD
             LEA     PIPEINIT,A1
@@ -78,6 +77,9 @@ GAMEPLOT
             JSR     AGLPLOT
             BRA     BIRDPLOT
          
+
+
+
 
 
 

@@ -16,7 +16,7 @@ MOUVAL      DS.B    1                       ; MOUSE VALUE (0,CTRL,ALT,SHIFT,DOUB
 ; --- TIMED INTERRUPT RELATED VARIABLES ---------------------------------------
 
 SCRINTCT    DS.B    1                       ; INTERRUPT COUNTER
-SCRCYCCT    DS.B    1                       ; SCREEN CYCLE COUNTER
+SCRCYCCT    DC.B    0                       ; SCREEN CYCLE COUNTER
 GAMCYCCT    DC.B    0                       ; GAME CYCLE COUNTER
             DS.W    0
             
@@ -24,6 +24,7 @@ GAMCYCCT    DC.B    0                       ; GAME CYCLE COUNTER
 
 SCOPATH     DC.B     'DATA/SCORES.dat',0    ; SCORE FILE PATH
             DS.W     0
+
 
 
 

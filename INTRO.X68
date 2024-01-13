@@ -15,6 +15,7 @@ ISCINIT
             CLR.B   MOUVAL
             CLR.B   KBDVAL
             CLR.B   KBDEDGE
+            CLR.B   GAMCYCCT
             ; INIT GAME VARIABLES
             JSR BIRDINIT
             JSR SCOINIT
@@ -120,6 +121,7 @@ ISCPLOT
             
             MOVEM.L (A7)+,D0-D4/D6-D7/A1
             RTS
+
 
 
 
